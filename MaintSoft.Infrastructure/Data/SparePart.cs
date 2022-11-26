@@ -34,9 +34,9 @@ namespace MaintSoft.Infrastructure.Data
         public string Location { get; set; } = null!;
 
         [Required]
+        [ForeignKey(nameof(Manufacturer))]
         public int ManufacturerId { get; set; }
 
-        [ForeignKey(nameof(ManufacturerId))]
         public Manufacturer Manufacturer { get; set; } = null!;
     }
 }

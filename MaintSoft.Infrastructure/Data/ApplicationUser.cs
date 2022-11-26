@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,9 @@ namespace MaintSoft.Infrastructure.Data
 {
     public class ApplicationUser : IdentityUser
     {
+        [Key]
+        public int Id { get; set; }
+
         [Required]
         [StringLength(50, MinimumLength = 4)]
         public string UserName { get; set; } = null!;
@@ -33,6 +37,8 @@ namespace MaintSoft.Infrastructure.Data
 
         [Required]
         public bool IsDelete { get; set; } = false;
+
+        public List<ApplicationUserTask> ApplicationUserTasks { get; set; }
 
     }
 }
