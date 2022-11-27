@@ -34,6 +34,16 @@ namespace MaintSoft.Infrastructure.Data
             builder.Entity<MachineTask>()
                 .HasKey(k => new { k.MachineId, k.TaskId });
 
+
+            builder.Entity<ApplicationUser>()
+                .Property(u => u.UserName)
+                .HasMaxLength(50)
+                .IsRequired();
+
+            builder.Entity<ApplicationUser>()
+               .Property(u => u.Email)
+               .HasMaxLength(70)
+               .IsRequired();
         }
     }
 }

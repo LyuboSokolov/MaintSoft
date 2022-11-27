@@ -11,16 +11,6 @@ namespace MaintSoft.Infrastructure.Data
 {
     public class ApplicationUser : IdentityUser
     {
-     
-        [Required]
-        [StringLength(50, MinimumLength = 4)]
-        public string UserName { get; set; } = null!;
-
-        [Required]
-        [StringLength(70, MinimumLength = 4)]
-        [EmailAddress]
-        public string Email { get; set; } = null!;
-
         [Required]
         [StringLength(30, MinimumLength = 3)]
         public string FirstName { get; set; } = null!;
