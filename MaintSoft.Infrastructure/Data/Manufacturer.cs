@@ -30,9 +30,12 @@ namespace MaintSoft.Infrastructure.Data
         [StringLength(200, MinimumLength = 10)]
         public string Address { get; set; } = null!;
 
- 
-        [StringLength(200, MinimumLength = 0)]
-        public string Description { get; set; }
+        [Required]
+        public bool IsDelete { get; set; } = false;
+
+
+        [MaxLength(200)]
+        public string? Description { get; set; }
 
         public List<SparePart> SpareParts { get; set; }
 

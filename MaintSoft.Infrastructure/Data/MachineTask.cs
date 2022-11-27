@@ -17,7 +17,7 @@ namespace MaintSoft.Infrastructure.Data
 
 
         [Key]
-        [ForeignKey(nameof(Machine))]
+        [ForeignKey(nameof(Task))]
         public int TaskId { get; set; }
         public Task Task { get; set; }
     }

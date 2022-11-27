@@ -19,24 +19,27 @@ namespace MaintSoft.Infrastructure.Data
         public string Name { get; set; } = null!;
 
         [StringLength(100, MinimumLength = 3)]
-        public string Code { get; set; } = null!;
+        public string? Code { get; set; } = null!;
 
         [Required]
         [Range(0, 100000)]
         public int Quantity { get; set; } = 0;
 
 
-        [StringLength(1000, MinimumLength = 5)]
-        public string Description { get; set; } = null!;
+        [MaxLength(1000)]
+        public string? Description { get; set; }
 
 
-        [StringLength(20, MinimumLength = 5)]
-        public string Location { get; set; } = null!;
+        [MaxLength(20)]
+        public string? Location { get; set; } 
 
         [Required]
         [ForeignKey(nameof(Manufacturer))]
         public int ManufacturerId { get; set; }
 
         public Manufacturer Manufacturer { get; set; } = null!;
+
+        [Required]
+        public bool IsDelete { get; set; } = false;
     }
 }

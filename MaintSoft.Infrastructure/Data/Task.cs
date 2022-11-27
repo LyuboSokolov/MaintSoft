@@ -19,8 +19,11 @@ namespace MaintSoft.Infrastructure.Data
         public string Name { get; set; } = null!;
 
 
-        [StringLength(1000, MinimumLength = 10)]
-        public string Description { get; set; } = null!;
+        [MaxLength(1000)]
+        public string? Description { get; set; }
+
+        [Required]
+        public bool IsDelete { get; set; } = false;
 
         public List<MachineTask> MachineTasks { get; set; }
 

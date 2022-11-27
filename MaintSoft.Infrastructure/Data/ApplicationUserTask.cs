@@ -12,7 +12,7 @@ namespace MaintSoft.Infrastructure.Data
     {
         [Key]
         [ForeignKey(nameof(ApplicationUser))]
-        public int ApplicationUserId { get;set; }
+        public string ApplicationUserId { get;set; }
         public ApplicationUser ApplicationUser { get; set; }
 
         [Key]

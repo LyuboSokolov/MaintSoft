@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MaintSoft.Infrastructure.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(MaintSoftDbContext))]
     [Migration("20221126200611_AddFlagsToDeleteUser")]
     partial class AddFlagsToDeleteUser
     {

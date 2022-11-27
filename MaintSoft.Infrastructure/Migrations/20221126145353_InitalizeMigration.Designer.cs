@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MaintSoft.Infrastructure.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(MaintSoftDbContext))]
     [Migration("20221126145353_InitalizeMigration")]
     partial class InitalizeMigration
     {

@@ -11,9 +11,7 @@ namespace MaintSoft.Infrastructure.Data
 {
     public class ApplicationUser : IdentityUser
     {
-        [Key]
-        public int Id { get; set; }
-
+     
         [Required]
         [StringLength(50, MinimumLength = 4)]
         public string UserName { get; set; } = null!;
@@ -39,6 +37,8 @@ namespace MaintSoft.Infrastructure.Data
         public bool IsDelete { get; set; } = false;
 
         public List<ApplicationUserTask> ApplicationUserTasks { get; set; }
+
+        public List<Asset> Assets { get; set; }
 
     }
 }
