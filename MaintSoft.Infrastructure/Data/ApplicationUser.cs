@@ -11,6 +11,7 @@ namespace MaintSoft.Infrastructure.Data
 {
     public class ApplicationUser : IdentityUser
     {
+        
         [Required]
         [StringLength(30, MinimumLength = 3)]
         public string FirstName { get; set; } = null!;

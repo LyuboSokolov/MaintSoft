@@ -33,6 +33,14 @@ namespace MaintSoft.Controllers
                 return View(model);
             }
 
+            var dbUser = await userManager.FindByNameAsync(model.Email);
+
+            if (dbUser != null)
+            {
+                ModelState.AddModelError("", "Email is already in use!");
+                return View(model);
+            }
+
             var user = new ApplicationUser()
             {
                 UserName = model.UserName,
@@ -46,6 +54,7 @@ namespace MaintSoft.Controllers
 
             if (result.Succeeded)
             {
+                await signInManager.PasswordSignInAsync(user, model.Password, false, false);
                 return RedirectToAction("Index", "Home");
             }
 
@@ -55,7 +64,38 @@ namespace MaintSoft.Controllers
                 ModelState.AddModelError("", item.Description);
             }
             return View(model);
-      
+        }
+
+        [HttpGet]
+        public IActionResult Login()
+        {
+            var model = new LoginViewModel();
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var user = await userManager.FindByNameAsync(model.Email);
+
+            if (user != null)
+            {
+                var result = await signInManager.PasswordSignInAsync(user, model.Password, false, false);
+
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            ModelState.AddModelError("", "Invalid login!");
+
+            return View(model);
         }
     }
 }
