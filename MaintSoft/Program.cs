@@ -16,6 +16,7 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
     options.Password.RequiredLength = 5;
     options.Password.RequireNonAlphanumeric = false;
     options.Password.RequireUppercase = false;
+    options.User.RequireUniqueEmail = true;
 })
     .AddEntityFrameworkStores<MaintSoftDbContext>();
 builder.Services.AddControllersWithViews();

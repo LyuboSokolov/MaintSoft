@@ -31,14 +31,7 @@ namespace MaintSoft.Controllers
             if (!ModelState.IsValid)
             {
                 return View(model);
-            }
 
-            var dbUser = await userManager.FindByNameAsync(model.Email);
-
-            if (dbUser != null)
-            {
-                ModelState.AddModelError("", "Email is already in use!");
-                return View(model);
             }
 
             var user = new ApplicationUser()
@@ -96,6 +89,13 @@ namespace MaintSoft.Controllers
             ModelState.AddModelError("", "Invalid login!");
 
             return View(model);
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            await signInManager.SignOutAsync();
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }
