@@ -32,5 +32,15 @@ namespace MaintSoft.Infrastructure.Data
         public string ApplicationUserId { get; set; }
 
         public ApplicationUser ApplicationUser { get; set; }
+
+        [Required]
+        [MaxLength(256)]
+        public string UserCreatedId { get; set; } = null!;
+
+        [MaxLength(256)]
+        public string? UserDeletedId { get; set; }
+
+
+
     }
 }

@@ -1,4 +1,7 @@
+using MaintSoft.Core.Contracts;
+using MaintSoft.Core.Services;
 using MaintSoft.Infrastructure.Data;
+using MaintSoft.Infrastructure.Data.Common;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,6 +23,11 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 })
     .AddEntityFrameworkStores<MaintSoftDbContext>();
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped<IRepository, Repository>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ISparePartService, SparePartService>();
+builder.Services.AddScoped<IManufacturerService, ManufacturerService>();
 
 builder.Services.ConfigureApplicationCookie(options =>
 {

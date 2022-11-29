@@ -33,5 +33,13 @@ namespace MaintSoft.Infrastructure.Data
         public string? Location { get; set; } 
 
         public List<MachineTask> MachineTasks { get; set; }
+
+        [Required]
+        [MaxLength(256)]
+        public string UserCreatedId { get; set; } = null!;
+
+        [MaxLength(256)]
+        public string? UserDeletedId { get; set; }
+
     }
 }
