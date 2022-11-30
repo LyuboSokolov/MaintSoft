@@ -1,24 +1,19 @@
 ﻿using MaintSoft.Core.Contracts;
 using MaintSoft.Core.Models.SparePart;
 using MaintSoft.Infrastructure.Data;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using MaintSoft.Infrastructure.Data.Common;
 
 namespace MaintSoft.Core.Services
 {
     public class SparePartService : ISparePartService
     {
-        private readonly MaintSoftDbContext context;
+        private readonly IRepository repo;
         private readonly IManufacturerService manufacturerService;
 
-        public SparePartService(MaintSoftDbContext _context,
-           IManufacturerService _manufacturerService )
+        public SparePartService(IRepository _repo,
+           IManufacturerService _manufacturerService)
         {
-            context = _context; 
+            repo = _repo;
             manufacturerService = _manufacturerService;
         }
         public async Task<int> Create(SparePartViewModel model, string userId)
@@ -36,11 +31,11 @@ namespace MaintSoft.Core.Services
                 Quantity = model.Quantity,
                 UserCreatedId = userId
             };
-           
-            var result =  context.SpareParts.Add(sparePart);
-            context.SaveChangesAsync();
+
+            await repo.AddAsync<SparePart>(sparePart);
+            await repo.SaveChangesAsync();
             return sparePart.Id;
-            
+
         }
     }
 }

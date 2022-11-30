@@ -1,5 +1,6 @@
 ﻿using MaintSoft.Core.Contracts;
 using MaintSoft.Infrastructure.Data;
+using MaintSoft.Infrastructure.Data.Common;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -11,20 +12,20 @@ namespace MaintSoft.Core.Services
 {
     public class ManufacturerService : IManufacturerService
     {
-        private readonly MaintSoftDbContext context;
+        private readonly IRepository repo;
 
-        public ManufacturerService(MaintSoftDbContext _context)
+        public ManufacturerService(IRepository _repo)
         {
-            context=_context;
+            repo = _repo;
         }
         public async Task<IEnumerable<Manufacturer>> GetAllManufacturer()
         {
-            return await context.Manufacturers.ToListAsync();
+            return await repo.AllReadonly<Manufacturer>().ToListAsync();
         }
 
         public async Task<Manufacturer> GetManufacturerById(int manufacturerId)
         {
-            return await context.Manufacturers.FirstOrDefaultAsync(x=> x.Id == manufacturerId);
+            return await repo.GetByIdAsync<Manufacturer>(manufacturerId);
         }
     }
 }
