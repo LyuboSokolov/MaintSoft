@@ -1,4 +1,6 @@
-﻿using MaintSoft.Infrastructure.Data;
+﻿using MaintSoft.Core.Models.Manufacturer;
+using MaintSoft.Core.Models.SparePart;
+using MaintSoft.Infrastructure.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,5 +15,7 @@ namespace MaintSoft.Core.Contracts
         Task<IEnumerable<Manufacturer>> GetAllManufacturer();
 
         Task<Manufacturer> GetManufacturerById(int manufacturerId);
+
+        Task<int> Create(ManufacturerViewModel model, string userId);
     }
 }

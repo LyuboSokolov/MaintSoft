@@ -1,12 +1,8 @@
 ﻿using MaintSoft.Core.Contracts;
+using MaintSoft.Core.Models.Manufacturer;
 using MaintSoft.Infrastructure.Data;
 using MaintSoft.Infrastructure.Data.Common;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MaintSoft.Core.Services
 {
@@ -18,6 +14,25 @@ namespace MaintSoft.Core.Services
         {
             repo = _repo;
         }
+
+        public async Task<int> Create(ManufacturerViewModel model, string userId)
+        {
+           
+            var manufacturer = new Manufacturer()
+            {
+               Name = model.Name,
+               Address = model.Address,
+               Contacts= model.Contacts,
+               Description= model.Description,
+               VAT = model.VAT,
+               UserCreatedId = userId
+            };
+
+            await repo.AddAsync<Manufacturer>(manufacturer);
+            await repo.SaveChangesAsync();
+            return manufacturer.Id;
+        }
+
         public async Task<IEnumerable<Manufacturer>> GetAllManufacturer()
         {
             return await repo.AllReadonly<Manufacturer>().ToListAsync();

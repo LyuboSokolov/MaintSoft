@@ -35,7 +35,7 @@ namespace MaintSoft.Infrastructure.Data.Common
         /// Adds entity to the database
         /// </summary>
         /// <param name="entity">Entity to add</param>
-        public async System.Threading.Tasks.Task AddAsync<T>(T entity) where T : class
+        public async Task AddAsync<T>(T entity) where T : class
         {
             await DbSet<T>().AddAsync(entity);
         }
@@ -44,7 +44,7 @@ namespace MaintSoft.Infrastructure.Data.Common
         /// Ads collection of entities to the database
         /// </summary>
         /// <param name="entities">Enumerable list of entities</param>
-        public async System.Threading.Tasks.Task AddRangeAsync<T>(IEnumerable<T> entities) where T : class
+        public async Task AddRangeAsync<T>(IEnumerable<T> entities) where T : class
         {
             await DbSet<T>().AddRangeAsync(entities);
         }
@@ -83,7 +83,7 @@ namespace MaintSoft.Infrastructure.Data.Common
         /// Deletes a record from database
         /// </summary>
         /// <param name="id">Identificator of record to be deleted</param>
-        public async System.Threading.Tasks.Task DeleteAsync<T>(object id) where T : class
+        public async Task DeleteAsync<T>(object id) where T : class
         {
             T entity = await GetByIdAsync<T>(id);
 

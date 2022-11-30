@@ -8,14 +8,13 @@ namespace MaintSoft.Controllers
     public class SparePartController : Controller
     {
         private readonly ISparePartService sparePartService;
-        private readonly IUserService userService;
         private readonly IManufacturerService manufacturerService;
+
         public SparePartController(ISparePartService _sparePartService,
             IUserService _userService,
             IManufacturerService _manufacturerService)
         {
             sparePartService = _sparePartService;
-            userService = _userService;
             manufacturerService = _manufacturerService;
         }
         [HttpGet]

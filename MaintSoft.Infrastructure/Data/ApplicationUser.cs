@@ -27,7 +27,7 @@ namespace MaintSoft.Infrastructure.Data
         [Required]
         public bool IsDelete { get; set; } = false;
 
-        public List<ApplicationUserTask> ApplicationUserTasks { get; set; }
+        public List<ApplicationUserAppTask> ApplicationUserAppTasks { get; set; }
 
         public List<Asset> Assets { get; set; }
 

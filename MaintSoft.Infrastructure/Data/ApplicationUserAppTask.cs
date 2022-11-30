@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MaintSoft.Infrastructure.Data
 {
-    public class ApplicationUserTask
+    public class ApplicationUserAppTask
     {
         [Key]
         [ForeignKey(nameof(ApplicationUser))]
@@ -18,6 +18,6 @@ namespace MaintSoft.Infrastructure.Data
         [Key]
         [ForeignKey(nameof(Task))]
         public int TaskId { get; set; }
-        public Task Task { get; set; }
+        public AppTask Task { get; set; }
     }
 }

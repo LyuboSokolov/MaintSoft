@@ -32,7 +32,7 @@ namespace MaintSoft.Infrastructure.Data
         [StringLength(100, MinimumLength = 3)]
         public string? Location { get; set; } 
 
-        public List<MachineTask> MachineTasks { get; set; }
+        public List<MachineAppTask> MachineAppTasks { get; set; }
 
         [Required]
         [MaxLength(256)]

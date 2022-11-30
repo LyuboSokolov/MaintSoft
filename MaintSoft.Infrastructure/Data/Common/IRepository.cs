@@ -44,13 +44,13 @@ namespace MaintSoft.Infrastructure.Data.Common
         /// Adds entity to the database
         /// </summary>
         /// <param name="entity">Entity to add</param>
-        System.Threading.Tasks.Task AddAsync<T>(T entity) where T : class;
+        Task AddAsync<T>(T entity) where T : class;
 
         /// <summary>
         /// Ads collection of entities to the database
         /// </summary>
         /// <param name="entities">Enumerable list of entities</param>
-        System.Threading.Tasks.Task AddRangeAsync<T>(IEnumerable<T> entities) where T : class;
+        Task AddRangeAsync<T>(IEnumerable<T> entities) where T : class;
 
         /// <summary>
         /// Updates a record in database
@@ -68,7 +68,7 @@ namespace MaintSoft.Infrastructure.Data.Common
         /// Deletes a record from database
         /// </summary>
         /// <param name="id">Identificator of record to be deleted</param>
-        System.Threading.Tasks.Task DeleteAsync<T>(object id) where T : class;
+        Task DeleteAsync<T>(object id) where T : class;
 
         /// <summary>
         /// Deletes a record from database

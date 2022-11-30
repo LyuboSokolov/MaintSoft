@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace MaintSoft.Infrastructure.Data
 {
-    public class Task
+    public class AppTask
     {
         [Key]
         [Required]
@@ -25,8 +19,8 @@ namespace MaintSoft.Infrastructure.Data
         [Required]
         public bool IsDelete { get; set; } = false;
 
-        public List<MachineTask> MachineTasks { get; set; }
+        public List<MachineAppTask> MachineAppTasks { get; set; }
 
-        public List<ApplicationUserTask> ApplicationUserTasks { get; set; }
+        public List<ApplicationUserAppTask> ApplicationUserAppTasks { get; set; }
     }
 }

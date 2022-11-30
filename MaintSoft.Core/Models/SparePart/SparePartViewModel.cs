@@ -1,12 +1,5 @@
-﻿using MaintSoft.Infrastructure.Data;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using System.ComponentModel.DataAnnotations;
+using MaintSoft.Infrastructure.Data;
 namespace MaintSoft.Core.Models.SparePart
 {
     public class SparePartViewModel
@@ -37,7 +30,7 @@ namespace MaintSoft.Core.Models.SparePart
         [Required]
         public int ManufacturerId { get; set; }
 
-        public IEnumerable<Manufacturer>? Manufacturers { get; set; }
+        public IEnumerable<MaintSoft.Infrastructure.Data.Manufacturer>? Manufacturers { get; set; }
    
     }
 }

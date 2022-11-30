@@ -4,6 +4,7 @@ using MaintSoft.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MaintSoft.Infrastructure.Migrations
 {
     [DbContext(typeof(MaintSoftDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221130101905_RenameEntityTaskToAppTask")]
+    partial class RenameEntityTaskToAppTask
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -493,13 +495,13 @@ namespace MaintSoft.Infrastructure.Migrations
             modelBuilder.Entity("MaintSoft.Infrastructure.Data.ApplicationUserAppTask", b =>
                 {
                     b.HasOne("MaintSoft.Infrastructure.Data.ApplicationUser", "ApplicationUser")
-                        .WithMany("ApplicationUserAppTasks")
+                        .WithMany("ApplicationUserTasks")
                         .HasForeignKey("ApplicationUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("MaintSoft.Infrastructure.Data.AppTask", "Task")
-                        .WithMany("ApplicationUserAppTasks")
+                        .WithMany("ApplicationUserTasks")
                         .HasForeignKey("TaskId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -523,13 +525,13 @@ namespace MaintSoft.Infrastructure.Migrations
             modelBuilder.Entity("MaintSoft.Infrastructure.Data.MachineAppTask", b =>
                 {
                     b.HasOne("MaintSoft.Infrastructure.Data.Machine", "Machine")
-                        .WithMany("MachineAppTasks")
+                        .WithMany("MachineTasks")
                         .HasForeignKey("MachineId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("MaintSoft.Infrastructure.Data.AppTask", "Task")
-                        .WithMany("MachineAppTasks")
+                        .WithMany("MachineTasks")
                         .HasForeignKey("TaskId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -603,21 +605,21 @@ namespace MaintSoft.Infrastructure.Migrations
 
             modelBuilder.Entity("MaintSoft.Infrastructure.Data.ApplicationUser", b =>
                 {
-                    b.Navigation("ApplicationUserAppTasks");
+                    b.Navigation("ApplicationUserTasks");
 
                     b.Navigation("Assets");
                 });
 
             modelBuilder.Entity("MaintSoft.Infrastructure.Data.AppTask", b =>
                 {
-                    b.Navigation("ApplicationUserAppTasks");
+                    b.Navigation("ApplicationUserTasks");
 
-                    b.Navigation("MachineAppTasks");
+                    b.Navigation("MachineTasks");
                 });
 
             modelBuilder.Entity("MaintSoft.Infrastructure.Data.Machine", b =>
                 {
-                    b.Navigation("MachineAppTasks");
+                    b.Navigation("MachineTasks");
                 });
 
             modelBuilder.Entity("MaintSoft.Infrastructure.Data.Manufacturer", b =>
