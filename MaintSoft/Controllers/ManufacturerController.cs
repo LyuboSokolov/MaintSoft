@@ -1,10 +1,12 @@
 ﻿using MaintSoft.Core.Contracts;
 using MaintSoft.Core.Models.Manufacturer;
 using MaintSoft.Extensions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MaintSoft.Controllers
 {
+    [Authorize]
     public class ManufacturerController : Controller
     {
         private readonly IManufacturerService manufacturerService;

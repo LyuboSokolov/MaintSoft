@@ -24,15 +24,17 @@ namespace MaintSoft.Infrastructure.Data
 
         public DbSet<Asset> Assets { get; set; }
 
+        public DbSet<Status> Status { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
 
             builder.Entity<ApplicationUserAppTask>()
-                .HasKey(k => new { k.ApplicationUserId, k.TaskId });
+                .HasKey(k => new { k.ApplicationUserId, k.AppTaskId });
 
             builder.Entity<MachineAppTask>()
-                .HasKey(k => new { k.MachineId, k.TaskId });
+                .HasKey(k => new { k.MachineId, k.AppTaskId });
 
 
             builder.Entity<ApplicationUser>()

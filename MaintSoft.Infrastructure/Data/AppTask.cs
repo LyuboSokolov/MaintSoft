@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MaintSoft.Infrastructure.Data
 {
@@ -19,8 +20,24 @@ namespace MaintSoft.Infrastructure.Data
         [Required]
         public bool IsDelete { get; set; } = false;
 
-        public List<MachineAppTask> MachineAppTasks { get; set; }
+        [Required]
+        [ForeignKey(nameof(StatusId))]
+        public int StatusId { get;set; }
 
-        public List<ApplicationUserAppTask> ApplicationUserAppTasks { get; set; }
+        public Status? Status { get; set; }
+
+        [Required]
+        [MaxLength(256)]
+        public string UserCreatedId { get; set; } = null!;
+
+        [MaxLength(256)]
+        public string? UserContractorId { get; set; }
+
+        public DateTime CreatedDate { get; set; }
+        public DateTime? UpdatedDate { get; set; }
+
+        public List<MachineAppTask> MachinesAppTasks { get; set; }
+
+        public List<ApplicationUserAppTask> ApplicationUsersAppTasks { get; set; }
     }
 }

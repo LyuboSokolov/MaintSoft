@@ -1,0 +1,45 @@
+﻿@model IEnumerable<AppTaskViewModel>
+
+@{
+    ViewBag.Title = "Task List";
+}
+<a class="nav-link text-dark" asp-area="" asp-controller="AppTask" asp-action="Add">Add Task</a>
+@if (Model.LongCount() == 0)
+{
+    <div> Not Yet Task</div>
+}
+else
+{
+
+    <table class="table table-bordered table-responsive table-hover">
+        <tr>
+            <th>Task</th>
+            <th>Description </th>
+            <th>Status</th>
+            <th>Creator</th>
+            <th>Contractor</th>
+            <th>Created Date</th>
+            <th>Update Date</th>
+            <th></th>
+      
+        </tr>
+        @foreach (var task in Model)
+        {
+            <tr>
+                <td>@task.Name</td>
+                <td>@task.Description</td>
+                <td>@task.Status</td>
+                <td>@task.UserCreatedFullName</td>
+                <td>@task.UserContractorFullName</td>
+                <td>@task.CreatedDate</td>
+                <td>@task.UpdatedDate</td>
+                <td>
+                    <form class="input-group-sm" asp-route-movieId="@task.Id" asp-controller="Movies" asp-action="AddToCollection" method="post">
+                        <input type="submit" value="Get Task" class="fs-6 btn btn-success mb-3 p-2" />
+                    </form>
+                </td>
+            </tr>
+        }
+
+    </table>
+}

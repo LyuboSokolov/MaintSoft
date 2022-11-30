@@ -11,14 +11,14 @@ namespace MaintSoft.Infrastructure.Data
     public class MachineAppTask
     {
         [Key]
-        [ForeignKey(nameof(Machine))]
+        [ForeignKey(nameof(MachineId))]
         public int MachineId { get; set; }
         public Machine Machine { get; set; }
 
 
         [Key]
-        [ForeignKey(nameof(Task))]
-        public int TaskId { get; set; }
-        public AppTask Task { get; set; }
+        [ForeignKey(nameof(AppTaskId))]
+        public int AppTaskId { get; set; }
+        public AppTask AppTask { get; set; }
     }
 }

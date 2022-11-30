@@ -4,6 +4,7 @@ using MaintSoft.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MaintSoft.Infrastructure.Migrations
 {
     [DbContext(typeof(MaintSoftDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221130193314_AddDateToAppTaskTable")]
+    partial class AddDateToAppTaskTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -145,8 +147,9 @@ namespace MaintSoft.Infrastructure.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<int>("StatusId")
-                        .HasColumnType("int");
+                    b.Property<string>("Status")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
@@ -161,8 +164,6 @@ namespace MaintSoft.Infrastructure.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("StatusId");
 
                     b.ToTable("AppTasks");
                 });
@@ -373,24 +374,6 @@ namespace MaintSoft.Infrastructure.Migrations
                     b.ToTable("SpareParts");
                 });
 
-            modelBuilder.Entity("MaintSoft.Infrastructure.Data.Status", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Status");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -545,17 +528,6 @@ namespace MaintSoft.Infrastructure.Migrations
                     b.Navigation("AppTask");
 
                     b.Navigation("ApplicationUser");
-                });
-
-            modelBuilder.Entity("MaintSoft.Infrastructure.Data.AppTask", b =>
-                {
-                    b.HasOne("MaintSoft.Infrastructure.Data.Status", "Status")
-                        .WithMany()
-                        .HasForeignKey("StatusId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Status");
                 });
 
             modelBuilder.Entity("MaintSoft.Infrastructure.Data.Asset", b =>

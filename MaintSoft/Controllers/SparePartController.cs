@@ -1,10 +1,12 @@
 ﻿using MaintSoft.Core.Contracts;
 using MaintSoft.Core.Models.SparePart;
 using MaintSoft.Extensions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MaintSoft.Controllers
 {
+    [Authorize]
     public class SparePartController : Controller
     {
         private readonly ISparePartService sparePartService;

@@ -37,7 +37,7 @@ namespace MaintSoft.Infrastructure.Data
         public string ImageUrl { get; set; } = null!;
 
         [Required]
-        [ForeignKey(nameof(Manufacturer))]
+        [ForeignKey(nameof(ManufacturerId))]
         public int ManufacturerId { get; set; }
 
         public Manufacturer Manufacturer { get; set; } = null!;
