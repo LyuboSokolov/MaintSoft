@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MaintSoft.Infrastructure.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace MaintSoft.Core.Contracts
 {
     public interface IUserService
     {
-        Task<string> GetUserId(string userId);
+        Task<ApplicationUser> GetApplicationUserByIdAsync(string userId);
     }
 }

@@ -2,6 +2,7 @@
 using MaintSoft.Core.Models.SparePart;
 using MaintSoft.Infrastructure.Data;
 using MaintSoft.Infrastructure.Data.Common;
+using Microsoft.EntityFrameworkCore;
 
 namespace MaintSoft.Core.Services
 {
@@ -36,6 +37,11 @@ namespace MaintSoft.Core.Services
             await repo.SaveChangesAsync();
             return sparePart.Id;
 
+        }
+
+        public async Task<List<SparePart>> GetAllSparePartAsync()
+        {
+            return await repo.AllReadonly<SparePart>().ToListAsync();
         }
     }
 }

@@ -2,6 +2,7 @@
 using MaintSoft.Core.Models.AppTask;
 using MaintSoft.Core.Services;
 using MaintSoft.Extensions;
+using MaintSoft.Infrastructure.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,11 +13,18 @@ namespace MaintSoft.Controllers
     {
         private readonly IAppTaskService appTaskService;
         private readonly IMachineService machineService;
+        private readonly IUserService userService;
+        private readonly ISparePartService sparePartService;
+
         public AppTaskController(IAppTaskService _appTaskService,
-            IMachineService _machineService)
+            IMachineService _machineService,
+            IUserService _userService,
+            ISparePartService _sparePartService)
         {
-            appTaskService= _appTaskService;
-            machineService= _machineService;
+            appTaskService = _appTaskService;
+            machineService = _machineService;
+            userService = _userService;
+            sparePartService = _sparePartService;
         }
 
 
@@ -27,13 +35,13 @@ namespace MaintSoft.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Add() 
+        public async Task<IActionResult> Add()
         {
             var status = await appTaskService.GetAllStatusAsync();
             var machines = await machineService.GetAllMachineAsync();
             var model = new AddAppTaskViewModel()
             {
-                Status= status,
+                Status = status,
                 Machines = machines
             };
             return View(model);
@@ -42,8 +50,8 @@ namespace MaintSoft.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(AddAppTaskViewModel model)
         {
-            if (!ModelState.IsValid) 
-            { 
+            if (!ModelState.IsValid)
+            {
                 return View(model);
             }
             try
@@ -60,9 +68,37 @@ namespace MaintSoft.Controllers
             }
         }
 
-        public IActionResult Details()
+        public async Task<IActionResult> Details(string taskId, string machineName)
         {
-            return View();
+            if (taskId == null || machineName == null)
+            {
+                ModelState.AddModelError("", "Invalid Task!");
+                return RedirectToAction("All", "AppTask");
+            }
+            var appTask = await appTaskService.GetAppTaskByIdAsync(int.Parse(taskId));
+            var userCreatedTask = await userService.GetApplicationUserByIdAsync(appTask.UserCreatedId);
+            var status = await appTaskService.GetStatusByIdAsync(appTask.StatusId);
+            var spareParts = await sparePartService.GetAllSparePartAsync();
+
+            var model = new AppTaskDetailsViewModel()
+            {
+                Name = appTask.Name,
+                CreatedDate = appTask.CreatedDate,
+                Description = appTask.Description,
+                MachineName = machineName,
+                Status = status.Name,
+                UserCreatedFullName = $"{userCreatedTask.FirstName} {userCreatedTask.LastName}",
+                Id = appTask.Id,
+                SpareParts = spareParts
+            };
+                
+
+            return View(model);
+        }
+
+        public IActionResult Cancel()
+        {
+            return RedirectToAction("All");
         }
     }
 }

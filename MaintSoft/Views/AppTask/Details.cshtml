@@ -1,0 +1,40 @@
+﻿@model AppTaskDetailsViewModel
+
+
+<h2>@Model.MachineName</h2>
+
+<div>@Model.UserCreatedFullName</div>
+<div>@Model.Description</div>
+<div>@Model.CreatedDate</div>
+
+@*<div class="mb-3">
+    <label asp-for="@Model.SpareParts" class="form-label">Spare Part</label>
+    <select asp-for="@Model.SpareParts" class="form-control">
+        @foreach (var sparePart in Model.SpareParts)
+        {
+            <option value="@sparePart.Id">@sparePart.Name</option>
+        }
+    </select>
+    <span asp-validation-for="SpareParts" class="text-danger"></span>*@
+
+    <select class="js-example-basic-multiple" name="states[]" multiple="multiple">
+        @foreach (var sparePart in Model.SpareParts)
+        {
+            <option value="@sparePart.Id">@sparePart.Name</option>
+        }
+    </select>
+
+@*</div>*@
+
+<button><a class="nav-link text-dark" asp-area="" asp-controller="AppTask" asp-action="Cancel">Cancel</a></button>
+<button><a class="nav-link text-dark" asp-area="" asp-controller="AppTask" asp-action="Add">Save changes</a></button>
+<button><a class="nav-link text-dark" asp-area="" asp-controller="AppTask" asp-action="Add">Start</a></button>
+<button><a class="nav-link text-dark" asp-area="" asp-controller="AppTask" asp-action="Add">Complete</a></button>
+
+<script>
+
+    $(document).ready(function () {
+        $('.js-example-basic-multiple').select2();
+    });
+</script>
+

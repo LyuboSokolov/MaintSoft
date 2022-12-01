@@ -16,10 +16,9 @@ namespace MaintSoft.Core.Services
             this.repo = _repo;
         }
 
-        public async Task<string> GetUserId(string userId)
+        public async Task<ApplicationUser> GetApplicationUserByIdAsync(string userId)
         {
-            return (await repo.AllReadonly<ApplicationUser>()
-                .FirstOrDefaultAsync(u => u.Id == userId))?.Id ?? "";
+            return await repo.GetByIdAsync<ApplicationUser>(userId);
         }
     }
 }

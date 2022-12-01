@@ -12,5 +12,7 @@ namespace MaintSoft.Core.Contracts
     public interface ISparePartService
     {
         Task<int> Create(SparePartViewModel model, string userId);
+
+        Task<List<SparePart>> GetAllSparePartAsync();
     }
 }

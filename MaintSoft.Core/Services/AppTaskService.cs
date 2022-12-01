@@ -78,5 +78,10 @@ namespace MaintSoft.Core.Services
                                 
             });
         }
+
+        public async Task<AppTask> GetAppTaskByIdAsync(int appTaskId)
+        {
+           return await repo.GetByIdAsync<AppTask>(appTaskId);
+        }
     }
 }
