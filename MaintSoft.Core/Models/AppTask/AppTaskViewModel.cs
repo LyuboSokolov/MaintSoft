@@ -26,8 +26,13 @@ namespace MaintSoft.Core.Models.AppTask
 
         [MaxLength(256)]
         public string? UserContractorFullName { get; set; }
-        public List<MachineAppTask> MachineAppTasks { get; set; }
 
-        public List<ApplicationUserAppTask> ApplicationUserAppTasks { get; set; }
+        //public List<MachineAppTask> MachineAppTasks { get; set; }
+
+        //public List<ApplicationUserAppTask> ApplicationUserAppTasks { get; set; }
+
+        public string MachineName { get; set; }
+
+        public int MachineId { get; set; }
     }
 }

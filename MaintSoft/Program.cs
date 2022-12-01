@@ -29,6 +29,7 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ISparePartService, SparePartService>();
 builder.Services.AddScoped<IManufacturerService, ManufacturerService>();
 builder.Services.AddScoped<IAppTaskService, AppTaskService>();
+builder.Services.AddScoped<IMachineService, MachineService>();
 
 builder.Services.ConfigureApplicationCookie(options =>
 {

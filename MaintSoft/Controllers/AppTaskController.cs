@@ -11,10 +11,12 @@ namespace MaintSoft.Controllers
     public class AppTaskController : Controller
     {
         private readonly IAppTaskService appTaskService;
-
-        public AppTaskController(IAppTaskService _appTaskService)
+        private readonly IMachineService machineService;
+        public AppTaskController(IAppTaskService _appTaskService,
+            IMachineService _machineService)
         {
             appTaskService= _appTaskService;
+            machineService= _machineService;
         }
 
 
@@ -28,9 +30,11 @@ namespace MaintSoft.Controllers
         public async Task<IActionResult> Add() 
         {
             var status = await appTaskService.GetAllStatusAsync();
+            var machines = await machineService.GetAllMachineAsync();
             var model = new AddAppTaskViewModel()
             {
-                Status= status
+                Status= status,
+                Machines = machines
             };
             return View(model);
         }
@@ -44,7 +48,7 @@ namespace MaintSoft.Controllers
             }
             try
             {
-                await appTaskService.Create(model, User.Id());
+                await appTaskService.CreateAsync(model, User.Id());
 
                 return RedirectToAction("All");
             }
@@ -54,6 +58,11 @@ namespace MaintSoft.Controllers
 
                 return View(model);
             }
+        }
+
+        public IActionResult Details()
+        {
+            return View();
         }
     }
 }

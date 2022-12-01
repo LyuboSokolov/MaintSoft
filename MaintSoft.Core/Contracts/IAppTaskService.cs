@@ -12,7 +12,7 @@ namespace MaintSoft.Core.Contracts
     {
         Task<IEnumerable<AppTaskViewModel>> GetAllAppTaskAsync();
 
-        Task<int> Create(AddAppTaskViewModel model,string userId);
+        Task<int> CreateAsync(AddAppTaskViewModel model,string userId);
 
         Task<IEnumerable<Status>> GetAllStatusAsync();
     }

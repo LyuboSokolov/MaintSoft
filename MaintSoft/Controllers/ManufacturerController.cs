@@ -33,7 +33,7 @@ namespace MaintSoft.Controllers
 
             try
             {
-                await manufacturerService.Create(model, User.Id());
+                await manufacturerService.CreateAsync(model, User.Id());
 
                 return RedirectToAction("Add", "SparePart");
             }

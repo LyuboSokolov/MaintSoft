@@ -12,10 +12,10 @@ namespace MaintSoft.Core.Contracts
     public interface IManufacturerService
     {
        
-        Task<IEnumerable<Manufacturer>> GetAllManufacturer();
+        Task<IEnumerable<Manufacturer>> GetAllManufacturerAsync();
 
-        Task<Manufacturer> GetManufacturerById(int manufacturerId);
+        Task<Manufacturer> GetManufacturerByIdAsync(int manufacturerId);
 
-        Task<int> Create(ManufacturerViewModel model, string userId);
+        Task<int> CreateAsync(ManufacturerViewModel model, string userId);
     }
 }

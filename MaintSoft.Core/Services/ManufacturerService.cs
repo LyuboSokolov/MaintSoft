@@ -15,7 +15,7 @@ namespace MaintSoft.Core.Services
             repo = _repo;
         }
 
-        public async Task<int> Create(ManufacturerViewModel model, string userId)
+        public async Task<int> CreateAsync(ManufacturerViewModel model, string userId)
         {
            
             var manufacturer = new Manufacturer()
@@ -33,12 +33,12 @@ namespace MaintSoft.Core.Services
             return manufacturer.Id;
         }
 
-        public async Task<IEnumerable<Manufacturer>> GetAllManufacturer()
+        public async Task<IEnumerable<Manufacturer>> GetAllManufacturerAsync()
         {
             return await repo.AllReadonly<Manufacturer>().ToListAsync();
         }
 
-        public async Task<Manufacturer> GetManufacturerById(int manufacturerId)
+        public async Task<Manufacturer> GetManufacturerByIdAsync(int manufacturerId)
         {
             return await repo.GetByIdAsync<Manufacturer>(manufacturerId);
         }

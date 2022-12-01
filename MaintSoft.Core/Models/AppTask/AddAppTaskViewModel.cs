@@ -17,12 +17,19 @@ namespace MaintSoft.Core.Models.AppTask
 
         [MaxLength(1000)]
         public string? Description { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public DateTime? UpdatedDate { get; set; }
 
         [Required]
         public int StatusId { get; set; }
+        public IEnumerable<Status> Status { get; set; } = Enumerable.Empty<Status>();
 
-        public IEnumerable<Status> Status { get;set; } = Enumerable.Empty<Status>();
-        public DateTime CreatedDate { get; set; }
-        public DateTime? UpdatedDate { get; set; }
+        [Required]
+        public int MachineId { get; set; }
+        public List<Machine> Machines { get; set; } = new List<Machine>();
+
+
+      
+   
     }
 }

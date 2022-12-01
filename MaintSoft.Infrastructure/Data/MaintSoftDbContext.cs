@@ -46,6 +46,7 @@ namespace MaintSoft.Infrastructure.Data
                .Property(u => u.Email)
                .HasMaxLength(70)
                .IsRequired();
+
         }
     }
 }

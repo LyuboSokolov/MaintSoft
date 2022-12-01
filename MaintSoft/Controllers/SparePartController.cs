@@ -25,7 +25,7 @@ namespace MaintSoft.Controllers
 
             var model = new SparePartViewModel()
             {
-                Manufacturers = await manufacturerService.GetAllManufacturer()
+                Manufacturers = await manufacturerService.GetAllManufacturerAsync()
             };
             return View(model);
         }

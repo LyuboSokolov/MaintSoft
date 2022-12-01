@@ -18,7 +18,7 @@ namespace MaintSoft.Core.Services
         }
         public async Task<int> Create(SparePartViewModel model, string userId)
         {
-            var manufacturer = await manufacturerService.GetManufacturerById(model.ManufacturerId);
+            var manufacturer = await manufacturerService.GetManufacturerByIdAsync(model.ManufacturerId);
             var sparePart = new SparePart()
             {
                 Name = model.Name,

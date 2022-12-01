@@ -34,6 +34,8 @@ namespace MaintSoft.Infrastructure.Data
 
         public List<MachineAppTask> MachineAppTasks { get; set; }
 
+        public List<SparePart> SpareParts { get; set; }
+
         [Required]
         [MaxLength(256)]
         public string UserCreatedId { get; set; } = null!;
