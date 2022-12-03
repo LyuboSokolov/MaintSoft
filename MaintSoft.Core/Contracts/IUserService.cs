@@ -10,5 +10,7 @@ namespace MaintSoft.Core.Contracts
     public interface IUserService
     {
         Task<ApplicationUser> GetApplicationUserByIdAsync(string userId);
+
+        Task<List<ApplicationUser>> GetAllApplicationUsersAsync();
     }
 }

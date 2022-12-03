@@ -26,10 +26,30 @@
 
 @*</div>*@
 
+
+
+
 <button><a class="nav-link text-dark" asp-area="" asp-controller="AppTask" asp-action="Cancel">Cancel</a></button>
-<button><a class="nav-link text-dark" asp-area="" asp-controller="AppTask" asp-action="Add">Save changes</a></button>
-<button><a class="nav-link text-dark" asp-area="" asp-controller="AppTask" asp-action="Add">Start</a></button>
-<button><a class="nav-link text-dark" asp-area="" asp-controller="AppTask" asp-action="Add">Complete</a></button>
+
+
+@if (Model.Status == "In Process")
+{
+    <form class="input-group-sm" asp-route-taskId="@Model.Id" asp-route-machineName="@Model.MachineName" asp-controller="AppTask" asp-action="StartStopTask" method="post">
+        <input type="submit" value="Stop" class="fs-6 btn btn-success mb-3 p-2" />
+    </form>
+}
+else if (Model.Status == "New" || Model.Status == "Stopped")
+{
+    <form class="input-group-sm" asp-route-taskId="@Model.Id" asp-route-machineName="@Model.MachineName" asp-controller="AppTask" asp-action="StartStopTask" method="post">
+        <input type="submit" value="Start" class="fs-6 btn btn-success mb-3 p-2" />
+    </form>
+}
+
+@if (Model.Status != "Completed")
+{
+    <button><a class="nav-link text-dark" asp-route-taskId="@Model.Id" asp-controller="AppTask" asp-action="CompleteTask">Complete</a></button>
+    <button><a class="nav-link text-dark" asp-area="" asp-controller="AppTask" asp-action="Add">Save changes</a></button>
+}
 
 <script>
 

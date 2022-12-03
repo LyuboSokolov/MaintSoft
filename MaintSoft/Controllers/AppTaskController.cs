@@ -68,14 +68,14 @@ namespace MaintSoft.Controllers
             }
         }
 
-        public async Task<IActionResult> Details(string taskId, string machineName)
+        public async Task<IActionResult> Details(int taskId, string machineName)
         {
-            if (taskId == null || machineName == null)
+            if (await appTaskService.Exists(taskId) == false || machineName == null)
             {
                 ModelState.AddModelError("", "Invalid Task!");
                 return RedirectToAction("All", "AppTask");
             }
-            var appTask = await appTaskService.GetAppTaskByIdAsync(int.Parse(taskId));
+            var appTask = await appTaskService.GetAppTaskByIdAsync(taskId);
             var userCreatedTask = await userService.GetApplicationUserByIdAsync(appTask.UserCreatedId);
             var status = await appTaskService.GetStatusByIdAsync(appTask.StatusId);
             var spareParts = await sparePartService.GetAllSparePartAsync();
@@ -98,6 +98,19 @@ namespace MaintSoft.Controllers
 
         public IActionResult Cancel()
         {
+            return RedirectToAction("All");
+        }
+
+        public async Task<IActionResult> StartStopTask(int taskId)
+        {
+            await appTaskService.StartStopTaskAsync(taskId);
+            
+            return RedirectToAction("All");
+        }
+
+      public async Task<IActionResult> CompleteTask(int taskId)
+        {
+            await appTaskService.CompleteTaskAsync(taskId, User.Id());
             return RedirectToAction("All");
         }
     }

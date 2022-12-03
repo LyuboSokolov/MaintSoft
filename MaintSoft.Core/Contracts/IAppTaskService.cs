@@ -20,5 +20,11 @@ namespace MaintSoft.Core.Contracts
         Task<AppTask> GetAppTaskByIdAsync(int appTaskId);
 
         Task<Status> GetStatusByIdAsync(int statusId);
+
+        Task<bool> Exists(int id);
+
+        Task StartStopTaskAsync(int appTaskId);
+
+        Task CompleteTaskAsync (int appTaskId, string userId);
     }
 }

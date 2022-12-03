@@ -20,5 +20,10 @@ namespace MaintSoft.Core.Services
         {
             return await repo.GetByIdAsync<ApplicationUser>(userId);
         }
+
+        public async Task<List<ApplicationUser>> GetAllApplicationUsersAsync()
+        {
+            return await repo.AllReadonly<ApplicationUser>().ToListAsync(); 
+        }
     }
 }
