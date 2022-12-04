@@ -26,7 +26,7 @@ namespace MaintSoft.Core.Models.AppTask
 
         [Required]
         public int MachineId { get; set; }
-        public List<Machine> Machines { get; set; } = new List<Machine>();
+        public List<MaintSoft.Infrastructure.Data.Machine> Machines { get; set; } = new List<MaintSoft.Infrastructure.Data.Machine>();
 
 
       

@@ -47,6 +47,11 @@ namespace MaintSoft.Core.Services
                 ApplicationUsersAppTasks = new List<ApplicationUserAppTask>(),
                 MachinesAppTasks = new List<MachineAppTask>()
             };
+            if (model.StatusId == 4)
+            {
+                appTask.UserContractorId = userId;
+                appTask.UpdatedDate = DateTime.Now;
+            }
 
             await repo.AddAsync<AppTask>(appTask);
             appTask.ApplicationUsersAppTasks.Add(new ApplicationUserAppTask() { ApplicationUserId = userId });

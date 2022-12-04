@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography.X509Certificates;
 
 namespace MaintSoft.Infrastructure.Data
 {
@@ -33,8 +34,28 @@ namespace MaintSoft.Infrastructure.Data
             builder.Entity<ApplicationUserAppTask>()
                 .HasKey(k => new { k.ApplicationUserId, k.AppTaskId });
 
+            builder.Entity<ApplicationUserAppTask>()
+                .HasOne(a => a.ApplicationUser)
+                .WithMany(x => x.ApplicationUserAppTasks)
+                .HasForeignKey(x => x.ApplicationUserId);
+
+            builder.Entity<ApplicationUserAppTask>()
+                .HasOne(x => x.AppTask)
+                .WithMany(x => x.ApplicationUsersAppTasks)
+                .HasForeignKey(x => x.AppTaskId);
+
             builder.Entity<MachineAppTask>()
                 .HasKey(k => new { k.MachineId, k.AppTaskId });
+
+            builder.Entity<MachineAppTask>()
+                .HasOne(x => x.Machine)
+                .WithMany(x => x.MachineAppTasks)
+                .HasForeignKey(x => x.MachineId);
+
+            builder.Entity<MachineAppTask>()
+                .HasOne(x => x.AppTask)
+                .WithMany(x => x.MachinesAppTasks)
+                .HasForeignKey(x => x.AppTaskId);
 
 
             builder.Entity<ApplicationUser>()
