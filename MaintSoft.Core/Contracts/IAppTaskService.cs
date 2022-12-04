@@ -26,5 +26,7 @@ namespace MaintSoft.Core.Contracts
         Task StartStopTaskAsync(int appTaskId);
 
         Task CompleteTaskAsync (int appTaskId, string userId);
+
+        Task DeleteAsync(int appTaskId);
     }
 }

@@ -113,5 +113,20 @@ namespace MaintSoft.Controllers
             await appTaskService.CompleteTaskAsync(taskId, User.Id());
             return RedirectToAction("All");
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int appTaskId)
+        {
+            var appTask = await appTaskService.Exists(appTaskId);
+
+            if (appTask == false)
+            {
+                return RedirectToAction(nameof(All));
+            }
+
+            await appTaskService.DeleteAsync(appTaskId);
+
+            return RedirectToAction(nameof(All));
+        }
     }
 }

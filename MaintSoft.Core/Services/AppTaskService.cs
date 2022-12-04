@@ -3,6 +3,7 @@ using MaintSoft.Core.Models.AppTask;
 using MaintSoft.Infrastructure.Data;
 using MaintSoft.Infrastructure.Data.Common;
 using Microsoft.EntityFrameworkCore;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace MaintSoft.Core.Services
@@ -64,6 +65,7 @@ namespace MaintSoft.Core.Services
         public async Task<IEnumerable<AppTaskViewModel>> GetAllAppTaskAsync()
         {
             var tasks = await repo.AllReadonly<AppTask>()
+                .Where(x=> x.IsDelete == false)
                 .Include(x => x.Status)
                 .Include(x => x.MachinesAppTasks)
                 .ThenInclude(x => x.Machine)
@@ -148,6 +150,19 @@ namespace MaintSoft.Core.Services
 
             appTask.StatusId = (status.FirstOrDefault(x => x.Name == "Completed")).Id;
             appTask.UpdatedDate = DateTime.Now;
+            await repo.SaveChangesAsync();
+        }
+
+        public async Task DeleteAsync(int appTaskId)
+        {
+            var appTask = await GetAppTaskByIdAsync(appTaskId);
+
+            if (appTask == null)
+            {
+                return;
+            }
+
+            appTask.IsDelete = true;
             await repo.SaveChangesAsync();
         }
     }
