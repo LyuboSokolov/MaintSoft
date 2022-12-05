@@ -62,40 +62,16 @@ namespace MaintSoft.Core.Services
             return appTask.Id;
         }
 
-        public async Task<IEnumerable<AppTaskViewModel>> GetAllAppTaskAsync()
+        public async Task<List<AppTask>> GetAllAppTaskAsync()
         {
-            var tasks = await repo.AllReadonly<AppTask>()
+            return await repo.AllReadonly<AppTask>()
                 .Where(x=> x.IsDelete == false)
                 .Include(x => x.Status)
                 .Include(x => x.MachinesAppTasks)
                 .ThenInclude(x => x.Machine)
                 .Include(t => t.ApplicationUsersAppTasks)
                 .ThenInclude(x => x.ApplicationUser)
-                .ToListAsync();
-
-            //var allApplicationUsers = await userService.GetAllApplicationUsersAsync();
-
-            //tasks.Select( x=> new AppTaskViewModel()
-            //{
-
-            //})
-
-
-            return tasks.Select(t => new AppTaskViewModel()
-            {
-                Id = t.Id,
-                Name = t.Name,
-                Description = t.Description,
-                Status = t?.Status.Name,
-                UserCreatedFullName = (t.ApplicationUsersAppTasks.FirstOrDefault(x => x.ApplicationUserId == t.UserCreatedId))?.ApplicationUser?.FirstName + " " +
-                (t.ApplicationUsersAppTasks.FirstOrDefault(x => x.ApplicationUserId == t.UserCreatedId))?.ApplicationUser?.LastName,
-                UserContractorFullName = (t.ApplicationUsersAppTasks.FirstOrDefault(x => x.ApplicationUserId == t?.UserContractorId))?.ApplicationUser?.FirstName + " " +
-                (t.ApplicationUsersAppTasks.FirstOrDefault(x => x.ApplicationUserId == t?.UserContractorId))?.ApplicationUser?.LastName,
-                CreatedDate = t.CreatedDate,
-                UpdatedDate = t.UpdatedDate,
-                MachineName = (t.MachinesAppTasks.FirstOrDefault(x => x.MachineId == x.Machine.Id)).Machine.Name
-
-            });
+                .ToListAsync();        
         }
 
         public async Task<bool> Exists(int id)
@@ -148,7 +124,7 @@ namespace MaintSoft.Core.Services
           
 
 
-            appTask.StatusId = (status.FirstOrDefault(x => x.Name == "Completed")).Id;
+            appTask.StatusId = (status.FirstOrDefault(x => x.Name == "Done")).Id;
             appTask.UpdatedDate = DateTime.Now;
             await repo.SaveChangesAsync();
         }

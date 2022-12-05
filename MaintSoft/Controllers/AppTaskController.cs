@@ -5,6 +5,7 @@ using MaintSoft.Extensions;
 using MaintSoft.Infrastructure.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace MaintSoft.Controllers
 {
@@ -30,8 +31,23 @@ namespace MaintSoft.Controllers
 
         public async Task<IActionResult> All()
         {
-            var model = await appTaskService.GetAllAppTaskAsync();
-            return View(model);
+            var tasks = await appTaskService.GetAllAppTaskAsync();
+            var models = tasks.Select(t => new AppTaskViewModel()
+            {
+                Id = t.Id,
+                Name = t.Name,
+                Description = t.Description,
+                Status = t?.Status.Name,
+                UserCreatedFullName = (t.ApplicationUsersAppTasks.FirstOrDefault(x => x.ApplicationUserId == t.UserCreatedId))?.ApplicationUser?.FirstName + " " +
+            (t.ApplicationUsersAppTasks.FirstOrDefault(x => x.ApplicationUserId == t.UserCreatedId))?.ApplicationUser?.LastName,
+                UserContractorFullName = (t.ApplicationUsersAppTasks.FirstOrDefault(x => x.ApplicationUserId == t?.UserContractorId))?.ApplicationUser?.FirstName + " " +
+            (t.ApplicationUsersAppTasks.FirstOrDefault(x => x.ApplicationUserId == t?.UserContractorId))?.ApplicationUser?.LastName,
+                CreatedDate = t.CreatedDate,
+                UpdatedDate = t.UpdatedDate,
+                MachineName = (t.MachinesAppTasks.FirstOrDefault(x => x.MachineId == x.Machine.Id)).Machine.Name
+
+            });
+            return View(models);
         }
 
         [HttpGet]
@@ -91,7 +107,7 @@ namespace MaintSoft.Controllers
                 Id = appTask.Id,
                 SpareParts = spareParts
             };
-                
+
 
             return View(model);
         }
@@ -104,11 +120,11 @@ namespace MaintSoft.Controllers
         public async Task<IActionResult> StartStopTask(int taskId)
         {
             await appTaskService.StartStopTaskAsync(taskId);
-            
+
             return RedirectToAction("All");
         }
 
-      public async Task<IActionResult> CompleteTask(int taskId)
+        public async Task<IActionResult> CompleteTask(int taskId)
         {
             await appTaskService.CompleteTaskAsync(taskId, User.Id());
             return RedirectToAction("All");

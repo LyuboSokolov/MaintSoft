@@ -44,5 +44,22 @@ namespace MaintSoft.Controllers
                 return View(model);
             }
         }
+
+        public async Task<IActionResult> All()
+        {
+            var manufacturers = await manufacturerService.GetAllManufacturerAsync();
+
+            var models = manufacturers.Select(x => new ManufacturerViewModel()
+            {
+                Id = x.Id,
+                Name = x.Name,
+                VAT = x.VAT,
+                Address = x.Address,
+                Contacts = x.Contacts,
+                Description = x.Description
+            });
+
+            return View(models);
+        }
     }
 }

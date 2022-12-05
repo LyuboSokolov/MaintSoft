@@ -45,7 +45,7 @@ else if (Model.Status == "New" || Model.Status == "Stopped")
     </form>
 }
 
-@if (Model.Status != "Completed")
+@if (Model.Status != "Done")
 {
     <button><a class="nav-link text-dark" asp-route-taskId="@Model.Id" asp-controller="AppTask" asp-action="CompleteTask">Complete</a></button>
     <button><a class="nav-link text-dark" asp-area="" asp-controller="AppTask" asp-action="Add">Save changes</a></button>
