@@ -61,5 +61,61 @@ namespace MaintSoft.Controllers
 
             return View(models);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int manufacturerId)
+        {
+            var manufacturer = await manufacturerService.GetManufacturerByIdAsync(manufacturerId);
+
+            if (manufacturer == null)
+            {
+                return RedirectToAction(nameof(All));
+            }
+
+            var model = new ManufacturerViewModel()
+            {
+                Id = manufacturer.Id,
+                Name = manufacturer.Name,
+                Address = manufacturer.Address,
+                Contacts = manufacturer.Contacts,
+                Description = manufacturer.Description,
+                VAT = manufacturer.VAT
+            };
+
+            return View(model);
+        }
+
+
+        [HttpPost]
+
+        public async Task<IActionResult> Edit(int manufacturerId, ManufacturerViewModel model)
+        {
+            if (manufacturerId != model.Id)
+            {
+                return RedirectToPage("/Account/AccessDenied", new { area = "Identity" });
+            }
+
+            if ((await manufacturerService.Exists(model.Id)) == false)
+            {
+                ModelState.AddModelError("", "Manufacturer does not exist!");
+                return View(model);
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            await manufacturerService.Edit(manufacturerId, model);
+
+            return RedirectToAction(nameof(All));
+        }
+
+        public async Task<IActionResult> Delete(int manufacturerId)
+        {
+            await manufacturerService.DeleteAsync(manufacturerId);
+
+            return RedirectToAction(nameof(All));
+        }
     }
 }

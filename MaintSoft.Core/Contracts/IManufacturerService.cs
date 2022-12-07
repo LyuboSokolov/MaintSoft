@@ -17,5 +17,11 @@ namespace MaintSoft.Core.Contracts
         Task<Manufacturer> GetManufacturerByIdAsync(int manufacturerId);
 
         Task<int> CreateAsync(ManufacturerViewModel model, string userId);
+
+        Task<bool> Exists(int manufacturerId);
+
+        Task Edit(int manufacturerId,ManufacturerViewModel model);
+
+        Task DeleteAsync(int manufacturerId);
     }
 }
