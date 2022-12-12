@@ -35,10 +35,11 @@ namespace MaintSoft.Core.Services
         }
 
         [HttpPost]
-        public async Task DeleteAsync(int manufacturerId)
+        public async Task DeleteAsync(int manufacturerId, string userId)
         {
             var manufacturer = await GetManufacturerByIdAsync(manufacturerId);
             manufacturer.IsDelete = true;
+            manufacturer.UserDeletedId= userId;
             await repo.SaveChangesAsync();
         }
 

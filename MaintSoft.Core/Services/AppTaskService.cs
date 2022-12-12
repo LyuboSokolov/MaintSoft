@@ -129,7 +129,7 @@ namespace MaintSoft.Core.Services
             await repo.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(int appTaskId)
+        public async Task DeleteAsync(int appTaskId, string userId)
         {
             var appTask = await GetAppTaskByIdAsync(appTaskId);
 
@@ -139,6 +139,7 @@ namespace MaintSoft.Core.Services
             }
 
             appTask.IsDelete = true;
+            appTask.UserDeleteId = userId;
             await repo.SaveChangesAsync();
         }
     }

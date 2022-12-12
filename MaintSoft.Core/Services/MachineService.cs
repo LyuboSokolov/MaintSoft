@@ -35,7 +35,9 @@ namespace MaintSoft.Core.Services
 
         public async Task<List<Machine>> GetAllMachineAsync()
         {
-            return await repo.AllReadonly<Machine>().ToListAsync();
+            return await repo.AllReadonly<Machine>()
+                .Where(x => x.IsDelete == false)
+                .ToListAsync();
         }
 
         public async Task<Machine> GetMachineByIdAsync(int machineId)

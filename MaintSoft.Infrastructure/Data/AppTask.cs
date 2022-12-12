@@ -22,7 +22,7 @@ namespace MaintSoft.Infrastructure.Data
 
         [Required]
         [ForeignKey(nameof(StatusId))]
-        public int StatusId { get;set; }
+        public int StatusId { get; set; }
 
         public Status? Status { get; set; }
 
@@ -33,6 +33,9 @@ namespace MaintSoft.Infrastructure.Data
         [MaxLength(256)]
         public string? UserContractorId { get; set; }
 
+
+        [MaxLength(256)]
+        public string? UserDeleteId { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
 

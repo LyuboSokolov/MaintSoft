@@ -22,6 +22,6 @@ namespace MaintSoft.Core.Contracts
 
         Task Edit(int manufacturerId,ManufacturerViewModel model);
 
-        Task DeleteAsync(int manufacturerId);
+        Task DeleteAsync(int manufacturerId, string userId);
     }
 }

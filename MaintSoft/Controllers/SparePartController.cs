@@ -1,8 +1,11 @@
 ﻿using MaintSoft.Core.Contracts;
+using MaintSoft.Core.Models.AppTask;
 using MaintSoft.Core.Models.SparePart;
+using MaintSoft.Core.Services;
 using MaintSoft.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 
 namespace MaintSoft.Controllers
 {
@@ -42,7 +45,7 @@ namespace MaintSoft.Controllers
             {
                 await sparePartService.Create(model, User.Id());
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction(nameof(All));
             }
             catch (Exception)
             {
@@ -51,5 +54,38 @@ namespace MaintSoft.Controllers
                 return View(model);
             }
         }
+
+
+
+        public async Task<IActionResult> All()
+        {
+            var spareParts = await sparePartService.GetAllSparePartAsync();
+            var models = spareParts.Select(x => new SparePartAllViewModel()
+            {
+                Name = x.Name,
+                Code = x.Code,
+                Description = x.Description,
+                Id = x.Id,
+                ImageUrl = x.ImageUrl,
+                Location = x.Location,
+                Quantity = x.Quantity,
+
+            });
+            return View(models);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int sparePartId)
+        {
+            if (await sparePartService.Exists(sparePartId) == null)
+            {
+                return RedirectToAction(nameof(All));
+            }
+
+            await sparePartService.DeleteAsync(sparePartId, User.Id());
+
+            return RedirectToAction(nameof(All));
+        }
+
     }
 }

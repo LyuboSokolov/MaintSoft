@@ -140,7 +140,7 @@ namespace MaintSoft.Controllers
                 return RedirectToAction(nameof(All));
             }
 
-            await appTaskService.DeleteAsync(appTaskId);
+            await appTaskService.DeleteAsync(appTaskId,User.Id());
 
             return RedirectToAction(nameof(All));
         }

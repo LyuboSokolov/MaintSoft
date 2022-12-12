@@ -14,5 +14,13 @@ namespace MaintSoft.Core.Contracts
         Task<int> Create(SparePartViewModel model, string userId);
 
         Task<List<SparePart>> GetAllSparePartAsync();
+
+        Task<bool> Exists(int sparePartId);
+
+        Task<SparePart> GetSparePartByIdAsync(int sparePartId);
+
+        Task DeleteAsync(int sparePartId, string userId);
+
+     
     }
 }

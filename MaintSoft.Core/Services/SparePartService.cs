@@ -39,9 +39,37 @@ namespace MaintSoft.Core.Services
 
         }
 
+        public async Task DeleteAsync(int sparePartId, string userId)
+        {
+            var sparePart = await GetSparePartByIdAsync(sparePartId);
+
+            if (sparePart == null)
+            {
+                return;
+            }
+
+            sparePart.IsDelete = true;
+            sparePart.UserDeletedId = userId;
+            await repo.SaveChangesAsync();
+        }
+
+        public async Task<bool> Exists(int sparePartId)
+        {
+            return await repo.AllReadonly<SparePart>()
+                          .AnyAsync(x => x.Id == sparePartId);
+        }
+
         public async Task<List<SparePart>> GetAllSparePartAsync()
         {
-            return await repo.AllReadonly<SparePart>().ToListAsync();
+            return await repo.AllReadonly<SparePart>()
+                .Where(x => x.IsDelete == false).ToListAsync();
         }
+
+        public async Task<SparePart> GetSparePartByIdAsync(int sparePartId)
+        {
+            return await repo.GetByIdAsync<SparePart>(sparePartId);
+        }
+
+
     }
 }

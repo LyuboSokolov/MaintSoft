@@ -113,7 +113,7 @@ namespace MaintSoft.Controllers
 
         public async Task<IActionResult> Delete(int manufacturerId)
         {
-            await manufacturerService.DeleteAsync(manufacturerId);
+            await manufacturerService.DeleteAsync(manufacturerId, User.Id());
 
             return RedirectToAction(nameof(All));
         }

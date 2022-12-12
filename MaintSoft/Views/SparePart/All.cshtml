@@ -1,0 +1,56 @@
+﻿@model IEnumerable<SparePartAllViewModel>
+
+@{
+    ViewBag.Title = "Spare Parts";
+}
+<a class="nav-link text-dark" asp-area="" asp-controller="SparePart" asp-action="Add">Add Spare Part</a>
+@if (Model.LongCount() == 0)
+{
+    <div> Not Yet Spare Part</div>
+}
+else
+{
+
+    <table class="table table-bordered table-responsive table-hover">
+        <tr>
+            <th>Name</th>
+            <th>Code</th>
+            <th>Quantity</th>
+            <th>Description</th>
+            <th>Location</th>
+            <th>Picture</th>
+            <th></th>
+            <th></th>
+        </tr>
+        @foreach (var sparePart in Model)
+        {
+            <tr>
+                <td>@sparePart.Name</td>
+                <td>@sparePart.Code</td>
+                <td>@sparePart.Quantity</td>
+                <td>@sparePart.Description</td>
+                <td>@sparePart.Location</td>
+                <td> <img src="@sparePart.ImageUrl" height="64" width="64" /></td>
+
+                <td>
+                    <form class="input-group-sm" asp-route-sparePartId="@sparePart.Id" asp-controller="SparePart" asp-action="Edit" method="post">
+                        <input type="submit" value="Edit" class="fs-6 btn btn-success mb-3 p-2" />
+                    </form>
+
+                    @*   <form class="input-group-sm"  asp-controller="Manufacturer" asp-action="Edit" method="post" asp-route-manufacturerId="@manufacturer.Id">
+            <input type="submit" value="Edit" class="fs-6 btn btn-success mb-3 p-2" />
+            </form>*@
+                </td>
+                <td>
+                    @*<form class="input-group-sm" asp-route-manufacturerId="@manufacturer.Id" asp-controller="Manufacturer" asp-action="Delete"S>
+            <input type="submit" value="Detele" class="fs-6 btn btn-success mb-3 p-2" />
+            </form>*@
+                   <form class="input-group-sm" asp-route-sparePartId="@sparePart.Id" asp-controller="SparePart" asp-action="Delete" method="post">
+                        <input type="submit" value="Delete" class="fs-6 btn btn-success mb-3 p-2" />
+                    </form>
+                </td>
+            </tr>
+        }
+
+    </table>
+}

@@ -11,7 +11,6 @@ namespace MaintSoft.Infrastructure.Data
     public class SparePart
     {
         [Key]
-
         public int Id { get; set; }
 
         [Required]
@@ -52,7 +51,7 @@ namespace MaintSoft.Infrastructure.Data
         [MaxLength(256)]
         public string? UserDeletedId { get; set; }
 
-        public List<Machine> Machines { get; set; } 
+        public List<Machine> Machines { get; set; }
 
     }
 }
