@@ -53,6 +53,22 @@ namespace MaintSoft.Core.Services
             await repo.SaveChangesAsync();
         }
 
+        public async Task Edit(int sparePartId,SparePartViewModel model)
+        {
+            var sparePart = await repo.GetByIdAsync<SparePart>(sparePartId);
+
+            sparePart.ManufacturerId = model.ManufacturerId;
+            sparePart.Quantity = model.Quantity;
+            sparePart.Code = model.Code;
+            sparePart.Description = model.Description;
+            sparePart.ImageUrl = model.ImageUrl;
+            sparePart.Location = model.Location;
+            sparePart.Name = model.Name;
+
+            await repo.SaveChangesAsync();
+
+        }
+
         public async Task<bool> Exists(int sparePartId)
         {
             return await repo.AllReadonly<SparePart>()

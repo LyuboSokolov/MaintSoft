@@ -1,0 +1,70 @@
+﻿@model SparePartViewModel
+
+@{
+    ViewBag.Title = "Edit Spare Part";
+}
+
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<div class="row">
+    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+        <form asp-action="Edit" method="post">
+            <input type="hidden" asp-for="@Model.Id" />
+            <div class="mb-3">
+                <label asp-for="@Model.Name" class="form-label">Name</label>
+                <input asp-for="@Model.Name" class="form-control" aria-required="true" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.Code" class="form-label">Code</label>
+                <input asp-for="@Model.Code" class="form-control" aria-required="true" />
+                <span asp-validation-for="Code" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.Description" class="form-label">Description</label>
+                <textarea asp-for="@Model.Description" class="form-control" aria-required="true" rows="5"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.Quantity" class="form-label">Quantity</label>
+                <input asp-for="@Model.Quantity" class="form-control" aria-required="true" />
+                <span asp-validation-for="Quantity" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.Location" class="form-label">Location</label>
+                <input asp-for="@Model.Location" class="form-control" />
+                <span asp-validation-for="Location" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.ImageUrl" class="form-label">ImageUrl</label>
+                <input asp-for="@Model.ImageUrl" class="form-control" />
+                <span asp-validation-for="ImageUrl" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.ManufacturerId" class="form-label">Manufacturers</label>
+                <select asp-for="@Model.ManufacturerId" class="form-control">
+                    @foreach (var manufacturer in Model.Manufacturers)
+                    {
+                        <option value="@manufacturer.Id">@manufacturer.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="ManufacturerId" class="text-danger"></span>
+
+                <div class="mb-3">
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Manufacturer" asp-action="Add">Add Manufacturer</a>
+                </div>
+            </div>
+            <div class="mb-3">
+                <input asp-route-sparePartId="@Model.Id" class="btn btn-primary" type="submit" value="Save" />
+            </div>
+        </form>
+
+    </div>
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

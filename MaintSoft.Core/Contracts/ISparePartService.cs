@@ -21,6 +21,6 @@ namespace MaintSoft.Core.Contracts
 
         Task DeleteAsync(int sparePartId, string userId);
 
-     
+        Task Edit(int sparePartId,SparePartViewModel model);
     }
 }

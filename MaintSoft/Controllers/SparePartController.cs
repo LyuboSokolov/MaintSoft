@@ -87,5 +87,56 @@ namespace MaintSoft.Controllers
             return RedirectToAction(nameof(All));
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Edit(int sparePartId)
+        {
+            if ((await sparePartService.Exists(sparePartId)) == false)
+            {
+                return RedirectToAction(nameof(All));
+            }
+
+            var sparePart = await sparePartService.GetSparePartByIdAsync(sparePartId);
+
+
+            var model = new SparePartViewModel()
+            {
+                Id = sparePartId,
+                Code = sparePart.Code,
+                Description = sparePart.Description,
+                ImageUrl = sparePart.ImageUrl,
+                Location = sparePart.Location,
+                ManufacturerId = sparePart.ManufacturerId,
+                Name = sparePart.Name,
+                Quantity = sparePart.Quantity,
+                Manufacturers = await manufacturerService.GetAllManufacturerAsync()
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int sparePartId, SparePartViewModel model)
+        {
+            if (sparePartId != model.Id)
+            {
+                return RedirectToPage("/Account/AccessDenied", new { area = "Identity" });
+            }
+
+            if ((await sparePartService.Exists(model.Id)) == false)
+            {
+                ModelState.AddModelError("", "Spare part does not exist!");
+                return View(model);
+            }
+
+            if (ModelState.IsValid == false)
+            {
+                model.Manufacturers = await manufacturerService.GetAllManufacturerAsync();
+
+                return View(model);
+            }
+            await sparePartService.Edit(sparePartId, model);
+
+            return RedirectToAction(nameof(All));
+        }
     }
 }
