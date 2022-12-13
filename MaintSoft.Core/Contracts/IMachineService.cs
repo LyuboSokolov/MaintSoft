@@ -10,5 +10,7 @@ namespace MaintSoft.Core.Contracts
         Task<List<Machine>> GetAllMachineAsync();
 
         Task<int> CreateAsync(AddMachineViewModel model, string userId);
+
+        Task<bool> Exists(int machineId);
     }
 }

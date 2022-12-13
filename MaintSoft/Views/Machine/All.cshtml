@@ -1,0 +1,39 @@
+﻿@model IEnumerable<AddMachineViewModel>
+
+@{
+    ViewBag.Title = "Machines";
+}
+<a class="nav-link text-dark" asp-area="" asp-controller="Machine" asp-action="Add">Add Machine</a>
+@if (Model.LongCount() == 0)
+{
+    <div> Not Yet Machines!</div>
+}
+else
+{
+
+    <table class="table table-bordered table-responsive table-hover">
+        <tr>
+            <th>Name</th>
+            <th>Code</th>
+            <th>Description</th>
+            <th>Location</th>
+            <th></th>
+        </tr>
+        @foreach (var machine in Model)
+        {
+            <tr>
+                <td>@machine.Name</td>
+                <td>@machine.Code</td>
+                <td>@machine.Description</td>
+                <td>@machine.Location</td>
+
+                <td>
+                    <form class="input-group-sm" asp-route-machineId="@machine.Id" asp-controller="Machine" asp-action="Details" method="post">
+                        <input type="submit" value="Details" class="fs-6 btn btn-success mb-3 p-2" />
+                    </form>
+                </td>
+            </tr>
+        }
+
+    </table>
+}

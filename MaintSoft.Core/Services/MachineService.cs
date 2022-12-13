@@ -25,7 +25,8 @@ namespace MaintSoft.Core.Services
                 Location = model.Location,
                 UserCreatedId = userId,
                 MachineAppTasks = new List<MachineAppTask>(),
-                SpareParts = new List<SparePart>()
+                SpareParts = new List<SparePart>(),
+                ImageUrl = model.ImageUrl
             };
 
             await repo.AddAsync<Machine>(machine);
@@ -33,6 +34,11 @@ namespace MaintSoft.Core.Services
             return machine.Id;
         }
 
+        public async Task<bool> Exists(int machineId)
+        {
+            return await repo.AllReadonly<Machine>()
+                             .AnyAsync(m => m.Id == machineId && m.IsDelete == false);
+        }
         public async Task<List<Machine>> GetAllMachineAsync()
         {
             return await repo.AllReadonly<Machine>()

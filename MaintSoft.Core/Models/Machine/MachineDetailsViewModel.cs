@@ -8,29 +8,30 @@ using System.Threading.Tasks;
 
 namespace MaintSoft.Core.Models.Machine
 {
-    public class AddMachineViewModel
+    public class MachineDetailsViewModel
     {
+
         public int Id { get; set; }
 
-        [Required]
-        [StringLength(30, MinimumLength = 5)]
         public string Name { get; set; } = null!;
 
-        [Required]
-        [StringLength(50, MinimumLength = 2)]
         public string Code { get; set; } = null!;
 
-
-        [StringLength(100, MinimumLength = 5)]
         public string? Description { get; set; }
 
-
         [StringLength(100, MinimumLength = 3)]
+
         public string? Location { get; set; }
 
-        [Required]
-        [MaxLength(2048)]
-        public string ImageUrl { get; set; } = null!;
+        public List<MachineAppTask> MachineAppTasks { get; set; }
 
+        public List<MaintSoft.Infrastructure.Data.SparePart> SpareParts { get; set; }
+
+        public string UserCreatedId { get; set; } = null!;
+
+        [MaxLength(256)]
+        public string? UserDeletedId { get; set; }
+
+        public string ImageUrl { get; set; } = null!;
     }
 }

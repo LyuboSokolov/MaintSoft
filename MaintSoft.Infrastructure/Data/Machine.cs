@@ -23,14 +23,14 @@ namespace MaintSoft.Infrastructure.Data
 
 
         [StringLength(100, MinimumLength = 5)]
-        public string? Description { get; set; } 
+        public string? Description { get; set; }
 
         [Required]
         public bool IsDelete { get; set; } = false;
 
 
         [StringLength(100, MinimumLength = 3)]
-        public string? Location { get; set; } 
+        public string? Location { get; set; }
 
         public List<MachineAppTask> MachineAppTasks { get; set; }
 
@@ -42,6 +42,11 @@ namespace MaintSoft.Infrastructure.Data
 
         [MaxLength(256)]
         public string? UserDeletedId { get; set; }
+
+
+        [Required]
+        [MaxLength(2048)]
+        public string ImageUrl { get; set; } = null!;
 
     }
 }

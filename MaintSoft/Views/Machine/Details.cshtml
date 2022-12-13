@@ -1,0 +1,28 @@
+﻿@model MachineDetailsViewModel
+
+
+<h2>@Model.Name</h2>
+
+<div>@Model.Code</div>
+<div>@Model.Description</div>
+<div>@Model.Location</div>
+<div>
+    <img src="@Model.ImageUrl" height="150" width="150" />
+</div>
+
+
+
+<div>
+    <button><a class="nav-link text-dark" asp-controller="Machine" asp-action="All">Cancel</a></button>
+
+    <form class="input-group-sm" asp-route-machineId="@Model.Id" asp-controller="Machine" asp-action="Edit" method="post">
+        <input type="submit" value="Edit" class="fs-6 btn btn-success mb-3 p-2" />
+    </form>
+    <form class="input-group-sm" asp-route-machineId="@Model.Id" asp-controller="Machine" asp-action="Delete" method="post">
+        <input type="submit" value="Delete" class="fs-6 btn btn-success mb-3 p-2" />
+    </form>
+
+</div>
+
+
+
