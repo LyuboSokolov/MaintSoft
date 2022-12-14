@@ -7,7 +7,7 @@ namespace MaintSoft.Core.Services
 {
 
 
-    public class UserService:IUserService
+    public class UserService : IUserService
     {
         private readonly IRepository repo;
 
@@ -23,7 +23,15 @@ namespace MaintSoft.Core.Services
 
         public async Task<List<ApplicationUser>> GetAllApplicationUsersAsync()
         {
-            return await repo.AllReadonly<ApplicationUser>().ToListAsync(); 
+            return await repo.AllReadonly<ApplicationUser>().ToListAsync();
+        }
+
+        public async Task<string> GetUserFullName(string userId)
+        {
+
+            var user = await repo.GetByIdAsync<ApplicationUser>(userId);
+
+            return $"{user.FirstName} ${user.LastName}";
         }
     }
 }

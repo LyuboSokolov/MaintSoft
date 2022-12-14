@@ -12,5 +12,9 @@ namespace MaintSoft.Core.Contracts
         Task<int> CreateAsync(AddMachineViewModel model, string userId);
 
         Task<bool> Exists(int machineId);
+
+        Task DeleteAsync(int machineId, string userId);
+
+        Task Edit(int machineId, AddMachineViewModel model);
     }
 }

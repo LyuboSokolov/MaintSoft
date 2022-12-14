@@ -10,5 +10,6 @@ namespace MaintSoft.Infrastructure.Data
         [StringLength(50)]
         [Required]
         public string Name { get; set; } = null!;
+
     }
 }

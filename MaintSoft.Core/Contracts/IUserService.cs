@@ -1,9 +1,4 @@
 ﻿using MaintSoft.Infrastructure.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MaintSoft.Core.Contracts
 {
@@ -12,5 +7,7 @@ namespace MaintSoft.Core.Contracts
         Task<ApplicationUser> GetApplicationUserByIdAsync(string userId);
 
         Task<List<ApplicationUser>> GetAllApplicationUsersAsync();
+
+        Task<string> GetUserFullName(string userId);
     }
 }

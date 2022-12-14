@@ -30,6 +30,7 @@ builder.Services.AddScoped<ISparePartService, SparePartService>();
 builder.Services.AddScoped<IManufacturerService, ManufacturerService>();
 builder.Services.AddScoped<IAppTaskService, AppTaskService>();
 builder.Services.AddScoped<IMachineService, MachineService>();
+builder.Services.AddScoped<IAssetService, AssetService>();
 
 builder.Services.ConfigureApplicationCookie(options =>
 {

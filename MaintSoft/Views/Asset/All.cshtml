@@ -1,0 +1,39 @@
+﻿@model IEnumerable<AssetViewModel>
+
+@{
+    ViewBag.Title = "Assets";
+}
+<a class="nav-link text-dark" asp-area="" asp-controller="Asset" asp-action="Add">Add Asset</a>
+@if (Model.LongCount() == 0)
+{
+    <div> Not Yet Assets!</div>
+}
+else
+{
+
+    <table class="table table-bordered table-responsive table-hover">
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Person responsible</th>
+            <th></th>
+        </tr>
+        @foreach (var asset in Model)
+        {
+            <tr>
+                <td>@asset.Name</td>
+                <td>@asset.Description</td>
+                <td>@asset.</td>
+                <td>@asset.PersonResponsible</td>
+
+                <td>
+                   @* <form class="input-group-sm" asp-route-machineId="@asset.Id" asp-controller="Machine" asp-action="Details" method="post">
+                        <input type="submit" value="Details" class="fs-6 btn btn-success mb-3 p-2" />
+                    </form>*@
+                </td>
+            </tr>
+        }
+
+    </table>
+}

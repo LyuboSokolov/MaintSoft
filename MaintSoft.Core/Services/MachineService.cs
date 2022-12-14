@@ -34,6 +34,27 @@ namespace MaintSoft.Core.Services
             return machine.Id;
         }
 
+        public async Task DeleteAsync(int machineId, string userId)
+        {
+            var machine = await repo.GetByIdAsync<Machine>(machineId);
+            machine.IsDelete = true;
+            machine.UserDeletedId = userId;
+            await repo.SaveChangesAsync();
+        }
+
+        public async Task Edit(int machineId, AddMachineViewModel model)
+        {
+            var machine = await repo.GetByIdAsync<Machine>(machineId);
+
+            machine.Name = model.Name;
+            machine.Code = model.Code;
+            machine.Description = model.Description;
+            machine.Location = model.Location;
+            machine.ImageUrl = model.ImageUrl;
+
+            await repo.SaveChangesAsync();
+        }
+
         public async Task<bool> Exists(int machineId)
         {
             return await repo.AllReadonly<Machine>()

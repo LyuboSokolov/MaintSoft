@@ -1,10 +1,10 @@
 ﻿using MaintSoft.Core.Contracts;
 using MaintSoft.Core.Models.Machine;
+using MaintSoft.Core.Models.Manufacturer;
 using MaintSoft.Core.Services;
 using MaintSoft.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.VisualBasic;
 
 namespace MaintSoft.Controllers
 {
@@ -12,11 +12,16 @@ namespace MaintSoft.Controllers
     public class MachineController : Controller
     {
         private readonly IMachineService machineService;
+        private readonly IUserService userService;
 
-        public MachineController(IMachineService _machineService)
+        public MachineController(
+            IMachineService _machineService,
+            IUserService _userService)
         {
             machineService = _machineService;
+            userService = _userService;
         }
+
         [HttpGet]
         public IActionResult Add()
         {
@@ -82,6 +87,66 @@ namespace MaintSoft.Controllers
             model.ImageUrl = machine.ImageUrl;
 
             return View(model);
+        }
+
+        public async Task<IActionResult> Delete(int machineId)
+        {
+            if (await machineService.Exists(machineId) == false)
+            {
+                return RedirectToAction(nameof(All));
+            }
+
+            await machineService.DeleteAsync(machineId, User.Id());
+
+            return RedirectToAction(nameof(All));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int machineId)
+        {
+            var machine = await machineService.GetMachineByIdAsync(machineId);
+
+            if (machine == null)
+            {
+                return RedirectToAction(nameof(All));
+            }
+
+            var model = new AddMachineViewModel()
+            {
+                Id = machine.Id,
+                Name = machine.Name,
+                Code = machine.Code,
+                ImageUrl = machine.ImageUrl,
+                Description = machine.Description,
+                Location = machine.Location
+            };
+
+            return View(model);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int machineId, AddMachineViewModel model)
+        {
+            if (machineId != model.Id)
+            {
+                return RedirectToPage("/Account/AccessDenied", new { area = "Identity" });
+            }
+
+            if ((await machineService.Exists(model.Id)) == false)
+            {
+                ModelState.AddModelError("", "Machine does not exist!");
+                return View(model);
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            await machineService.Edit(machineId, model);
+
+            return RedirectToAction(nameof(All));
         }
     }
 }

@@ -21,8 +21,6 @@ namespace MaintSoft.Infrastructure.Data
         [StringLength(100, MinimumLength = 5)]
         public string Description { get; set; }
 
-        [Required]
-        public bool Status { get; set; } = true;
 
         [Required]
         public bool IsDelete { get; set; } = false;
