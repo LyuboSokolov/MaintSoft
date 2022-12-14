@@ -26,6 +26,9 @@ namespace MaintSoft.Infrastructure.Data
         public bool IsDelete { get; set; } = false;
 
         [Required]
+        public bool IsAvailable { get; set; } = true;
+
+        [Required]
         [ForeignKey(nameof(ApplicationUserId))]
         public string ApplicationUserId { get; set; }
 

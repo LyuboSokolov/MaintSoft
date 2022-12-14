@@ -27,6 +27,6 @@ namespace MaintSoft.Core.Models.Asset
 
         public string? UserDeletedId { get; set; }
 
-
+        public bool IsAvailable { get; set; } = true;
     }
 }

@@ -1,5 +1,7 @@
 ﻿using MaintSoft.Core.Contracts;
 using MaintSoft.Core.Models.Asset;
+using MaintSoft.Core.Services;
+using MaintSoft.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MaintSoft.Controllers
@@ -22,19 +24,54 @@ namespace MaintSoft.Controllers
             var assets = await assetService.GetAllAssetsAsync();
 
             var models = assets
-                .Select( a => new AssetViewModel()
+                .Select(a => new AssetViewModel()
                 {
                     Description = a.Description,
                     Name = a.Name,
                     UserCreatedId = a.UserCreatedId,
                     UserDeletedId = a.UserDeletedId,
                     IsDelete = a.IsDelete,
-                    PersonResponsible = $"{a.ApplicationUser.FirstName} {a.ApplicationUser.LastName}"
+                    PersonResponsible = $"{a.ApplicationUser.FirstName} {a.ApplicationUser.LastName}",
+                    IsAvailable = a.IsAvailable
                 });
-
-
 
             return View(models);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Add()
+        {
+
+            var model = new AddAssetViewModel()
+            {
+                ApplicationUsers = await userService.GetAllApplicationUsersAsync(),
+                UserCreatedId = User.Id()
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Add(AddAssetViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            try
+            {
+                await assetService.CreateAsync(model, User.Id());
+
+                return RedirectToAction(nameof(All));
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("", "Something went wrong");
+
+                return View(model);
+            }
+        }
     }
 }
+
