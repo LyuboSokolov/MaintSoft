@@ -53,16 +53,18 @@
                 <span asp-validation-for="ManufacturerId" class="text-danger"></span>
 
                 <div class="mb-3">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Manufacturer" asp-action="Add">Add Manufacturer</a>
+                    <a class="btn btn-primary" style="margin-top: 5px" asp-area="" asp-controller="Manufacturer" asp-action="Add">Add Manufacturer</a>
                 </div>
             </div>
             <div class="mb-3">
-                <input asp-route-sparePartId="@Model.Id" class="btn btn-primary" type="submit" value="Save" />
+                <input asp-route-sparePartId="@Model.Id" class="btn btn-success" type="submit" value="Save" />
             </div>
         </form>
 
     </div>
 </div>
+
+
 
 
 @section Scripts {

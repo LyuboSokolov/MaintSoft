@@ -28,12 +28,12 @@
 
 
 <div>
-    <button><a class="nav-link text-dark" asp-controller="Machine" asp-action="All">Cancel</a></button>
+    <a class="btn btn-outline-primary" asp-controller="Machine" asp-action="All">Cancel</a>
 
     <a class="btn btn-warning" asp-controller="Machine" asp-action="Edit"
        asp-route-machineId="@Model.Id">Edit</a>
     <form class="input-group-sm" asp-route-machineId="@Model.Id" asp-controller="Machine" asp-action="Delete" method="post">
-        <input type="submit" value="Delete" class="fs-6 btn btn-success mb-3 p-2" />
+        <input type="submit" value="Delete" class="fs-6 btn btn-danger mb-3 p-2" />
     </form>
 
 </div>

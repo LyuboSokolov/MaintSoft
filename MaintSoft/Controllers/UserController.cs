@@ -1,10 +1,12 @@
 ﻿using MaintSoft.Core.Models;
 using MaintSoft.Infrastructure.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MaintSoft.Controllers
 {
+    [Authorize]
     public class UserController : Controller
     {
         private readonly UserManager<ApplicationUser> userManager;
@@ -17,6 +19,7 @@ namespace MaintSoft.Controllers
             signInManager = _signInManager;
         }
 
+        [AllowAnonymous]
 
         [HttpGet]
         public IActionResult Register()
@@ -25,6 +28,7 @@ namespace MaintSoft.Controllers
             return View(model);
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
@@ -59,6 +63,8 @@ namespace MaintSoft.Controllers
             return View(model);
         }
 
+        [AllowAnonymous]
+
         [HttpGet]
         public IActionResult Login()
         {
@@ -66,6 +72,8 @@ namespace MaintSoft.Controllers
 
             return View(model);
         }
+
+        [AllowAnonymous]
 
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model)

@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Manifacturers";
 }
-<a class="nav-link text-dark" asp-area="" asp-controller="Manufacturer" asp-action="Add">Add Manufacturer</a>
+<a class="btn btn-success" style="margin-bottom: 10px" asp-area="" asp-controller="Manufacturer" asp-action="Add">Add Manufacturer</a>
 @if (Model.LongCount() == 0)
 {
     <div> Not Yet Manufacturer</div>

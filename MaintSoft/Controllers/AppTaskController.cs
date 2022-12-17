@@ -105,7 +105,8 @@ namespace MaintSoft.Controllers
                 Status = status.Name,
                 UserCreatedFullName = $"{userCreatedTask.FirstName} {userCreatedTask.LastName}",
                 Id = appTask.Id,
-                SpareParts = spareParts
+                SpareParts = spareParts,
+                UpdatedDate = appTask.UpdatedDate
             };
 
 

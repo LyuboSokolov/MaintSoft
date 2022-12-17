@@ -1,0 +1,41 @@
+﻿@model IEnumerable<AppTaskViewModel>
+
+
+    <table class="table table-bordered table-responsive table-hover">
+        <tr>
+            <th>Task</th>
+            <th>Description</th>
+            <th>Machine</th>
+            <th>Status</th>
+            <th>Creator</th>
+            <th>Complited By</th>
+            <th>Created Date</th>
+            <th>Update Date</th>
+            <th></th>
+            <th></th>
+        </tr>
+        @foreach (var task in Model)
+        {
+            <tr>
+                <td>@task.Name</td>
+                <td>@task.Description</td>
+                <td>@task.MachineName</td>
+                <td>@task.Status</td>
+                <td>@task.UserCreatedFullName</td>
+                <td>@task.UserContractorFullName</td>
+                <td>@task.CreatedDate</td>
+                <td>@task.UpdatedDate</td>
+                <td>
+                    <form class="input-group-sm" asp-route-taskId="@task.Id" asp-route-machineName="@task.MachineName" asp-controller="AppTask" asp-action="Details" method="post">
+                        <input type="submit" value="Details" class="fs-6 btn btn-info mb-3 p-2" />
+                    </form>
+                </td>
+                <td>
+                    <form class="input-group-sm" asp-route-appTaskId="@task.Id" asp-route-machineName="@task.MachineName" asp-controller="AppTask" asp-action="Delete" method="post">
+                        <input type="submit" value="Delete" class="fs-6 btn btn-danger mb-3 p-2" />
+
+                    </form>
+                </td>
+            </tr>
+        }
+    </table>

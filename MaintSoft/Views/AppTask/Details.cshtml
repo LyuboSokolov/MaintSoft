@@ -1,41 +1,32 @@
 ﻿@model AppTaskDetailsViewModel
 
 
-<h2>@Model.MachineName</h2>
+<h2>Machine: @Model.MachineName</h2>
 
-<div>@Model.UserCreatedFullName</div>
-<div>@Model.Description</div>
-<div>@Model.CreatedDate</div>
-
-@*<div class="mb-3">
-    <label asp-for="@Model.SpareParts" class="form-label">Spare Part</label>
-    <select asp-for="@Model.SpareParts" class="form-control">
-        @foreach (var sparePart in Model.SpareParts)
-        {
-            <option value="@sparePart.Id">@sparePart.Name</option>
-        }
-    </select>
-    <span asp-validation-for="SpareParts" class="text-danger"></span>*@
-
-    <select class="js-example-basic-multiple" name="states[]" multiple="multiple">
-        @foreach (var sparePart in Model.SpareParts)
-        {
-            <option value="@sparePart.Id">@sparePart.Name</option>
-        }
-    </select>
-
-@*</div>*@
+<div>Creator: @Model.UserCreatedFullName</div>
+<div>Description: @Model.Description</div>
+<div>Created Date: @Model.CreatedDate</div>
+@if (Model.UpdatedDate != null)
+{
+    <div>Update Date: @Model.UpdatedDate</div>
+}
 
 
+<select class="js-example-basic-multiple" name="states[]" multiple="multiple">
+    @foreach (var sparePart in Model.SpareParts)
+    {
+        <option value="@sparePart.Id">@sparePart.Name @sparePart.Quantity</option>
+    }
+</select>
 
 
-<button><a class="nav-link text-dark" asp-area="" asp-controller="AppTask" asp-action="Cancel">Cancel</a></button>
+<a class="btn btn-outline-primary" asp-area="" asp-controller="AppTask" asp-action="Cancel">Cancel</a>
 
 
 @if (Model.Status == "In Process")
 {
     <form class="input-group-sm" asp-route-taskId="@Model.Id" asp-route-machineName="@Model.MachineName" asp-controller="AppTask" asp-action="StartStopTask" method="post">
-        <input type="submit" value="Stop" class="fs-6 btn btn-success mb-3 p-2" />
+        <input type="submit" value="Stop" class="fs-6 btn btn-warning mb-3 p-2" />
     </form>
 }
 else if (Model.Status == "New" || Model.Status == "Stopped")
@@ -47,8 +38,8 @@ else if (Model.Status == "New" || Model.Status == "Stopped")
 
 @if (Model.Status != "Done")
 {
-    <button><a class="nav-link text-dark" asp-route-taskId="@Model.Id" asp-controller="AppTask" asp-action="CompleteTask">Complete</a></button>
-    <button><a class="nav-link text-dark" asp-area="" asp-controller="AppTask" asp-action="Add">Save changes</a></button>
+    <a class="btn btn-info" asp-route-taskId="@Model.Id" asp-controller="AppTask" asp-action="CompleteTask">Complete</a>
+    <a class="btn btn-warning" asp-area="" asp-controller="AppTask" asp-action="Add">Save changes</a>
 }
 
 <script>
