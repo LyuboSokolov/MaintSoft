@@ -15,7 +15,7 @@
 <select class="js-example-basic-multiple" name="states[]" multiple="multiple">
     @foreach (var sparePart in Model.SpareParts)
     {
-        <option value="@sparePart.Id">@sparePart.Name @sparePart.Quantity</option>
+        <option value="@sparePart.Id">Name: @sparePart.Name - pcs: @sparePart.Quantity</option>
     }
 </select>
 
@@ -39,7 +39,7 @@ else if (Model.Status == "New" || Model.Status == "Stopped")
 @if (Model.Status != "Done")
 {
     <a class="btn btn-info" asp-route-taskId="@Model.Id" asp-controller="AppTask" asp-action="CompleteTask">Complete</a>
-    <a class="btn btn-warning" asp-area="" asp-controller="AppTask" asp-action="Add">Save changes</a>
+    <a class="btn btn-warning" asp-area="" asp-controller="AppTask" asp-action="All">Save changes</a>
 }
 
 <script>

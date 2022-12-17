@@ -40,6 +40,10 @@ namespace MaintSoft.Controllers
             {
                 return View(model);
             }
+            if (model.Quantity != (int)model.Quantity)
+            {
+                return View(model);
+            }
 
             try
             {
@@ -98,6 +102,7 @@ namespace MaintSoft.Controllers
             var sparePart = await sparePartService.GetSparePartByIdAsync(sparePartId);
 
 
+
             var model = new SparePartViewModel()
             {
                 Id = sparePartId,
@@ -117,10 +122,13 @@ namespace MaintSoft.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(int sparePartId, SparePartViewModel model)
         {
+
             if (sparePartId != model.Id)
             {
                 return RedirectToPage("/Account/AccessDenied", new { area = "Identity" });
             }
+
+            await sparePartService.Edit(sparePartId, model);
 
             if ((await sparePartService.Exists(model.Id)) == false)
             {
@@ -134,7 +142,7 @@ namespace MaintSoft.Controllers
 
                 return View(model);
             }
-            await sparePartService.Edit(sparePartId, model);
+
 
             return RedirectToAction(nameof(All));
         }
