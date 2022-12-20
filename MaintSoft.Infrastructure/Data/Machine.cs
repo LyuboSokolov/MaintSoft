@@ -32,9 +32,9 @@ namespace MaintSoft.Infrastructure.Data
         [StringLength(100, MinimumLength = 3)]
         public string? Location { get; set; }
 
-        public List<MachineAppTask> MachineAppTasks { get; set; }
+        public List<MachineAppTask> MachineAppTasks { get; set; } = new List<MachineAppTask>();
 
-        public List<SparePart> SpareParts { get; set; }
+        public List<SparePart> SpareParts { get; set; } = new List<SparePart>();
 
         [Required]
         [MaxLength(256)]

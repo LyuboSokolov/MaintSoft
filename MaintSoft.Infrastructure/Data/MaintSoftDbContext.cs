@@ -68,6 +68,9 @@ namespace MaintSoft.Infrastructure.Data
                .HasMaxLength(70)
                .IsRequired();
 
+            //builder.Entity<Machine>()
+            //    .HasIndex(n => n.Name)
+            //    .IsUnique();
         }
     }
 }

@@ -51,7 +51,7 @@ namespace MaintSoft.Infrastructure.Data
         [MaxLength(256)]
         public string? UserDeletedId { get; set; }
 
-        public List<Machine> Machines { get; set; }
+        public List<Machine> Machines { get; set; } = new List<Machine>();
 
     }
 }

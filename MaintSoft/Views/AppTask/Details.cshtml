@@ -1,46 +1,54 @@
 ﻿@model AppTaskDetailsViewModel
 
+@{
+    ViewBag.Title = $"{Model.Name} Details";
+   
+}
 
-<h2>Machine: @Model.MachineName</h2>
+<h2 class="text-center">@ViewBag.Title</h2>
 
-<div>Creator: @Model.UserCreatedFullName</div>
-<div>Description: @Model.Description</div>
-<div>Created Date: @Model.CreatedDate</div>
+<div>Creator: <b>@Model.UserCreatedFullName</b></div>
+<div>Description: <b>@Model.Description</b></div>
+<div>Created Date: <b>@Model.CreatedDate</b></div>
 @if (Model.UpdatedDate != null)
 {
-    <div>Update Date: @Model.UpdatedDate</div>
+    <div>Update Date: <b>@Model.UpdatedDate</b></div>
 }
 
-
-<select class="js-example-basic-multiple" name="states[]" multiple="multiple">
-    @foreach (var sparePart in Model.SpareParts)
-    {
-        <option value="@sparePart.Id">Name: @sparePart.Name - pcs: @sparePart.Quantity</option>
-    }
-</select>
-
-
-<a class="btn btn-outline-primary" asp-area="" asp-controller="AppTask" asp-action="Cancel">Cancel</a>
-
-
-@if (Model.Status == "In Process")
-{
-    <form class="input-group-sm" asp-route-taskId="@Model.Id" asp-route-machineName="@Model.MachineName" asp-controller="AppTask" asp-action="StartStopTask" method="post">
-        <input type="submit" value="Stop" class="fs-6 btn btn-warning mb-3 p-2" />
-    </form>
-}
-else if (Model.Status == "New" || Model.Status == "Stopped")
-{
-    <form class="input-group-sm" asp-route-taskId="@Model.Id" asp-route-machineName="@Model.MachineName" asp-controller="AppTask" asp-action="StartStopTask" method="post">
-        <input type="submit" value="Start" class="fs-6 btn btn-success mb-3 p-2" />
-    </form>
-}
-
+<form method="get" action="AddUsedSparePart"> 
 @if (Model.Status != "Done")
 {
-    <a class="btn btn-info" asp-route-taskId="@Model.Id" asp-controller="AppTask" asp-action="CompleteTask">Complete</a>
-    <a class="btn btn-warning" asp-area="" asp-controller="AppTask" asp-action="All">Save changes</a>
+    <select class="js-example-basic-multiple" style="width: 300px" name="partId" multiple="multiple">
+        @foreach (var sparePart in Model.SpareParts)
+        {
+            <option value="@sparePart.Id">@sparePart.Code</option>
+        }
+    </select>
 }
+<div>
+    @if (Model.Status == "In Process")
+    {
+        <form class="input-group-sm" style="display: inline-block" asp-route-taskId="@Model.Id" asp-route-machineName="@Model.MachineName" asp-controller="AppTask" asp-action="StartStopTask" method="post">
+            <input type="submit" value="Stop" class="fs-6 btn btn-danger mb-3 p-2" />
+        </form>
+    }
+    else if (Model.Status == "New" || Model.Status == "Stopped")
+    {
+        <form class="input-group-sm" style="display: inline-block" asp-route-taskId="@Model.Id" asp-route-machineName="@Model.MachineName" asp-controller="AppTask" asp-action="StartStopTask" method="post">
+            <input type="submit" value="Start" class="fs-6 btn btn-success mb-3 p-2" />
+        </form>
+    }
+
+    @if (Model.Status != "Done")
+    {
+        <a class="btn btn-info" name="taskId" asp-route-taskId="@Model.Id" asp-controller="AppTask" asp-action="CompleteTask">Complete</a>
+     
+            <input type="submit" value="Add used parts">
+    }
+
+    <a class="btn btn-outline-primary" asp-area="" asp-controller="AppTask" asp-action="Cancel">Cancel</a>
+</div>
+ </form>
 
 <script>
 

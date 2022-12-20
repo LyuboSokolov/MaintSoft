@@ -3,6 +3,7 @@ using MaintSoft.Core.Models.AppTask;
 using MaintSoft.Infrastructure.Data;
 using MaintSoft.Infrastructure.Data.Common;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.PortableExecutable;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -13,14 +14,17 @@ namespace MaintSoft.Core.Services
         private readonly IRepository repo;
         private readonly IMachineService machineService;
         private readonly IUserService userService;
+        private readonly ISparePartService sparePartService;
 
         public AppTaskService(IRepository _repo,
             IMachineService _machineService,
-            IUserService _userService)
+            IUserService _userService,
+            ISparePartService _sparePartService)
         {
             repo = _repo;
             machineService = _machineService;
             userService = _userService;
+            sparePartService = _sparePartService;
         }
 
         public async Task<IEnumerable<Status>> GetAllStatusAsync()
@@ -65,13 +69,13 @@ namespace MaintSoft.Core.Services
         public async Task<List<AppTask>> GetAllAppTaskAsync()
         {
             return await repo.AllReadonly<AppTask>()
-                .Where(x=> x.IsDelete == false)
+                .Where(x => x.IsDelete == false)
                 .Include(x => x.Status)
                 .Include(x => x.MachinesAppTasks)
                 .ThenInclude(x => x.Machine)
                 .Include(t => t.ApplicationUsersAppTasks)
                 .ThenInclude(x => x.ApplicationUser)
-                .ToListAsync();        
+                .ToListAsync();
         }
 
         public async Task<bool> Exists(int id)
@@ -82,7 +86,10 @@ namespace MaintSoft.Core.Services
 
         public async Task<AppTask> GetAppTaskByIdAsync(int appTaskId)
         {
-            return await repo.GetByIdAsync<AppTask>(appTaskId);
+            return await repo.AllReadonly<AppTask>()
+                .Include(x => x.MachinesAppTasks)
+                .ThenInclude(x => x.Machine)
+                .FirstOrDefaultAsync(x => x.Id == appTaskId);
         }
 
         public async Task StartStopTaskAsync(int appTaskId)
@@ -106,7 +113,7 @@ namespace MaintSoft.Core.Services
 
         public async Task CompleteTaskAsync(int appTaskId, string userId)
         {
-            var appTask = await GetAppTaskByIdAsync(appTaskId);
+            var appTask = await repo.GetByIdAsync<AppTask>(appTaskId);
             var status = await GetAllStatusAsync();
 
             appTask.UserContractorId = userId;
@@ -115,13 +122,13 @@ namespace MaintSoft.Core.Services
                 .Where(x => x.AppTaskId == appTaskId && x.ApplicationUserId == userId)
                 .ToListAsync();
 
-            if (applicationUserAppTask?.Count ==0)
+            if (applicationUserAppTask?.Count == 0)
             {
                 appTask.ApplicationUsersAppTasks = new List<ApplicationUserAppTask>();
                 appTask.ApplicationUsersAppTasks.Add(new ApplicationUserAppTask { ApplicationUserId = userId });
             }
 
-          
+
 
 
             appTask.StatusId = (status.FirstOrDefault(x => x.Name == "Done")).Id;
@@ -140,6 +147,24 @@ namespace MaintSoft.Core.Services
 
             appTask.IsDelete = true;
             appTask.UserDeleteId = userId;
+            await repo.SaveChangesAsync();
+        }
+
+        public async Task AddSparePart(int appTaskId, string machineName, int sparePartId)
+        {
+            var appTask = await GetAppTaskByIdAsync(appTaskId);
+            var sparePart = await sparePartService.GetSparePartByIdAsync(sparePartId);
+
+            var machine = await repo.AllReadonly<MaintSoft.Infrastructure.Data.Machine>()
+                .FirstOrDefaultAsync(x => x.Name == machineName);
+
+            machine.SpareParts.Add(sparePart);
+            sparePart.Machines.Add(machine);
+            //(appTask.MachinesAppTasks.FirstOrDefault(x => x.Machine.Name == machineName)).Machine;
+
+            sparePart.Quantity -= 1;
+
+          
             await repo.SaveChangesAsync();
         }
     }
