@@ -35,6 +35,7 @@ builder.Services.AddScoped<IAssetService, AssetService>();
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.LoginPath = "/User/Login";
+    options.LogoutPath = "/User/Logout";
 
 });
 

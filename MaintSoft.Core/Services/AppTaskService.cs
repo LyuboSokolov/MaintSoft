@@ -94,7 +94,7 @@ namespace MaintSoft.Core.Services
 
         public async Task StartStopTaskAsync(int appTaskId)
         {
-            var appTask = await GetAppTaskByIdAsync(appTaskId);
+            var appTask = await repo.GetByIdAsync<AppTask>(appTaskId);
             var status = await GetAllStatusAsync();
             var appTaskStatus = (status.FirstOrDefault(x => x.Id == appTask.StatusId)).Name;
 
@@ -164,7 +164,7 @@ namespace MaintSoft.Core.Services
 
             sparePart.Quantity -= 1;
 
-          
+
             await repo.SaveChangesAsync();
         }
     }

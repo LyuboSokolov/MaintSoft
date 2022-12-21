@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = $"{Model.Name} Details";
-   
+
 }
 
 <h2 class="text-center">@ViewBag.Title</h2>
@@ -15,8 +15,8 @@
     <div>Update Date: <b>@Model.UpdatedDate</b></div>
 }
 
-<form method="get" action="AddUsedSparePart"> 
-@if (Model.Status != "Done")
+
+@*@if (Model.Status != "Done")
 {
     <select class="js-example-basic-multiple" style="width: 300px" name="partId" multiple="multiple">
         @foreach (var sparePart in Model.SpareParts)
@@ -24,7 +24,7 @@
             <option value="@sparePart.Id">@sparePart.Code</option>
         }
     </select>
-}
+}*@
 <div>
     @if (Model.Status == "In Process")
     {
@@ -42,13 +42,13 @@
     @if (Model.Status != "Done")
     {
         <a class="btn btn-info" name="taskId" asp-route-taskId="@Model.Id" asp-controller="AppTask" asp-action="CompleteTask">Complete</a>
-     
-            <input type="submit" value="Add used parts">
+
+        @*<input type="submit" value="Add used parts">*@
     }
 
     <a class="btn btn-outline-primary" asp-area="" asp-controller="AppTask" asp-action="Cancel">Cancel</a>
 </div>
- </form>
+
 
 <script>
 
