@@ -3,6 +3,7 @@ using MaintSoft.Core.Services;
 using MaintSoft.Infrastructure.Data;
 using MaintSoft.Infrastructure.Data.Common;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,8 +22,16 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
     options.Password.RequireUppercase = false;
     options.User.RequireUniqueEmail = true;
 })
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<MaintSoftDbContext>();
-builder.Services.AddControllersWithViews();
+
+
+builder.Services.AddControllersWithViews()
+    .AddMvcOptions(options =>
+    {
+        options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
+       
+    });
 
 builder.Services.AddScoped<IRepository, Repository>();
 builder.Services.AddScoped<IUserService, UserService>();
@@ -61,9 +70,21 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
-app.MapRazorPages();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+   name: "areas",
+   pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+ );
+    endpoints.MapControllerRoute(
+      name: "default",
+      pattern: "{controller=Home}/{action=Index}/{id?}"
+    );
+
+    endpoints.MapRazorPages();
+});
+
+
 
 app.Run();
