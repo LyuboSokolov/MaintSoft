@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MaintSoft.Controllers
 {
-    [Authorize]
+    [Authorize(Roles ="Administrator,Engineer")]
     public class MachineController : Controller
     {
         private readonly IMachineService machineService;

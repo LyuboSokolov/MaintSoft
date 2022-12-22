@@ -9,7 +9,7 @@ using Microsoft.Data.SqlClient;
 
 namespace MaintSoft.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Administrator,Engineer")]
     public class SparePartController : Controller
     {
         private readonly ISparePartService sparePartService;

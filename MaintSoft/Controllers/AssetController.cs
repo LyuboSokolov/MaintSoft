@@ -2,10 +2,12 @@
 using MaintSoft.Core.Models.Asset;
 using MaintSoft.Core.Services;
 using MaintSoft.Extensions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MaintSoft.Controllers
 {
+    [Authorize(Roles ="Administrator")]
     public class AssetController : Controller
     {
         private readonly IAssetService assetService;

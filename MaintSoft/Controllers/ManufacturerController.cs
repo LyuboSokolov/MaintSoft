@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MaintSoft.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Administrator,Engineer")]
     public class ManufacturerController : Controller
     {
         private readonly IManufacturerService manufacturerService;
