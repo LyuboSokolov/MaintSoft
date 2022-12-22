@@ -23,7 +23,9 @@ namespace MaintSoft.Core.Services
 
         public async Task<List<ApplicationUser>> GetAllApplicationUsersAsync()
         {
-            return await repo.AllReadonly<ApplicationUser>().ToListAsync();
+            return await repo.AllReadonly<ApplicationUser>()
+                .Where(x => x.IsDelete == false)
+                .ToListAsync();
         }
 
         public async Task<string> GetUserFullName(string userId)

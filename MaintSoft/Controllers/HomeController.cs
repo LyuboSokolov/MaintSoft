@@ -16,7 +16,7 @@ namespace MaintSoft.Controllers
             var userrole = User.IsInRole("Administrator");
             if (User.IsInRole("Administrator"))
             {
-                return RedirectToAction("Index", "Home", new { area = AreaName });
+                return RedirectToAction("Index", "Admin", new { area = AreaName });
             }
             return View();
         }

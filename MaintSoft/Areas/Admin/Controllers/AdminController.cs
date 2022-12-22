@@ -4,7 +4,7 @@ namespace MaintSoft.Areas.Admin.Controllers
 {
     public class AdminController : BaseController
     {
-        public IActionResult A()
+        public IActionResult Index()
         {
             return View();
         }
