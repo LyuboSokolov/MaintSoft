@@ -38,7 +38,7 @@ namespace MaintSoft.Core.Services
 
         public async Task DeleteById(string userId)
         {
-           var user = await repo.GetByIdAsync<ApplicationUser>(userId);
+            var user = await repo.GetByIdAsync<ApplicationUser>(userId);
 
             user.IsDelete = true;
 
@@ -50,6 +50,11 @@ namespace MaintSoft.Core.Services
 
             return await repo.AllReadonly<ApplicationUser>()
                           .AnyAsync(x => x.Id == userId);
+        }
+
+        public async Task<ApplicationUser> GetApplicationUserByEmail(string email)
+        {
+            return await repo.AllReadonly<ApplicationUser>().FirstOrDefaultAsync(x => x.Email == email);
         }
     }
 }

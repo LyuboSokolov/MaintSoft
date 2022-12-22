@@ -13,5 +13,7 @@ namespace MaintSoft.Core.Contracts
         Task DeleteById(string userId);
 
         Task<bool> Exists(string userId);
+
+        Task<ApplicationUser> GetApplicationUserByEmail(string email);
     }
 }

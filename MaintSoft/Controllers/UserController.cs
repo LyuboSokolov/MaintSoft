@@ -1,8 +1,12 @@
-﻿using MaintSoft.Core.Models;
+﻿using MaintSoft.Core.Contracts;
+using MaintSoft.Core.Models;
+using MaintSoft.Core.Services;
 using MaintSoft.Infrastructure.Data;
+using MaintSoft.Infrastructure.Data.Common;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 namespace MaintSoft.Controllers
 {
@@ -11,12 +15,19 @@ namespace MaintSoft.Controllers
     {
         private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> signInManager;
+        private readonly IRepository repo;
 
-        public UserController(UserManager<ApplicationUser> _userManager,
-            SignInManager<ApplicationUser> _signInManager)
+
+
+        public UserController(
+            UserManager<ApplicationUser> _userManager,
+            SignInManager<ApplicationUser> _signInManager,
+           IRepository _repo)
         {
             userManager = _userManager;
             signInManager = _signInManager;
+            repo = _repo;
+
         }
 
         [AllowAnonymous]
@@ -32,6 +43,7 @@ namespace MaintSoft.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
+
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -49,8 +61,11 @@ namespace MaintSoft.Controllers
 
             var result = await userManager.CreateAsync(user, model.Password);
 
+
             if (result.Succeeded)
             {
+                await userManager.AddToRoleAsync(user, "User");
+
                 await signInManager.PasswordSignInAsync(user, model.Password, false, false);
                 return RedirectToAction("Index", "Home");
             }
