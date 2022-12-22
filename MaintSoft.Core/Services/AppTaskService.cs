@@ -12,18 +12,14 @@ namespace MaintSoft.Core.Services
     public class AppTaskService : IAppTaskService
     {
         private readonly IRepository repo;
-        private readonly IMachineService machineService;
-        private readonly IUserService userService;
+
         private readonly ISparePartService sparePartService;
 
-        public AppTaskService(IRepository _repo,
-            IMachineService _machineService,
-            IUserService _userService,
+        public AppTaskService(
+            IRepository _repo,
             ISparePartService _sparePartService)
         {
             repo = _repo;
-            machineService = _machineService;
-            userService = _userService;
             sparePartService = _sparePartService;
         }
 
@@ -150,22 +146,22 @@ namespace MaintSoft.Core.Services
             await repo.SaveChangesAsync();
         }
 
-        public async Task AddSparePart(int appTaskId, string machineName, int sparePartId)
-        {
-            var appTask = await GetAppTaskByIdAsync(appTaskId);
-            var sparePart = await sparePartService.GetSparePartByIdAsync(sparePartId);
+        //public async Task AddSparePart(int appTaskId, string machineName, int sparePartId)
+        //{
+        //    var appTask = await GetAppTaskByIdAsync(appTaskId);
+        //    var sparePart = await sparePartService.GetSparePartByIdAsync(sparePartId);
 
-            var machine = await repo.AllReadonly<MaintSoft.Infrastructure.Data.Machine>()
-                .FirstOrDefaultAsync(x => x.Name == machineName);
+        //    var machine = await repo.AllReadonly<MaintSoft.Infrastructure.Data.Machine>()
+        //        .FirstOrDefaultAsync(x => x.Name == machineName);
 
-            machine.SpareParts.Add(sparePart);
-            sparePart.Machines.Add(machine);
-            //(appTask.MachinesAppTasks.FirstOrDefault(x => x.Machine.Name == machineName)).Machine;
+        //    machine.SpareParts.Add(sparePart);
+        //    sparePart.Machines.Add(machine);
+        //    //(appTask.MachinesAppTasks.FirstOrDefault(x => x.Machine.Name == machineName)).Machine;
 
-            sparePart.Quantity -= 1;
+        //    sparePart.Quantity -= 1;
 
 
-            await repo.SaveChangesAsync();
-        }
+        //    await repo.SaveChangesAsync();
+        //}
     }
 }

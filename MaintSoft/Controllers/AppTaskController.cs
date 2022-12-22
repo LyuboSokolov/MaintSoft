@@ -149,32 +149,32 @@ namespace MaintSoft.Controllers
         }
 
 
-        public async Task<IActionResult> AddUsedSparePart(int partId)
-        {
-            var appTaskId = (int)TempData["taskId"];
-            var machine = (string)TempData["machineName"];
+        //public async Task<IActionResult> AddUsedSparePart(int partId)
+        //{
+        //    var appTaskId = (int)TempData["taskId"];
+        //    var machine = (string)TempData["machineName"];
 
-            if (partId == 0)
-            {
-                //TODO Information to user: No have change to save
-                return RedirectToAction(nameof(Details), new { taskId = appTaskId, machineName = machine });
-            }
-            if ((await sparePartService.Exists(partId)) == false)
-            {
-                //TODO Information to user: No exist this part yet
-                return RedirectToAction(nameof(Details), new { taskId = appTaskId, machineName = machine });
-            }
-            var sparePart = await sparePartService.GetSparePartByIdAsync(partId);
+        //    if (partId == 0)
+        //    {
+        //        //TODO Information to user: No have change to save
+        //        return RedirectToAction(nameof(Details), new { taskId = appTaskId, machineName = machine });
+        //    }
+        //    if ((await sparePartService.Exists(partId)) == false)
+        //    {
+        //        //TODO Information to user: No exist this part yet
+        //        return RedirectToAction(nameof(Details), new { taskId = appTaskId, machineName = machine });
+        //    }
+        //    var sparePart = await sparePartService.GetSparePartByIdAsync(partId);
 
-            if (sparePart.Quantity <= 0)
-            {
-                //TODO Information to user: Quntity not enough items to add 
-                return RedirectToAction(nameof(Details), new { taskId = appTaskId, machineName = machine });
-            }
-            await appTaskService.AddSparePart(appTaskId, machine, partId);
+        //    if (sparePart.Quantity <= 0)
+        //    {
+        //        //TODO Information to user: Quntity not enough items to add 
+        //        return RedirectToAction(nameof(Details), new { taskId = appTaskId, machineName = machine });
+        //    }
+        //    await appTaskService.AddSparePart(appTaskId, machine, partId);
 
 
-            return RedirectToAction(nameof(Details), new { taskId = appTaskId, machineName = machine });
-        }
+        //    return RedirectToAction(nameof(Details), new { taskId = appTaskId, machineName = machine });
+        //}
     }
 }

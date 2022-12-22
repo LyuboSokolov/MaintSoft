@@ -30,6 +30,6 @@ namespace MaintSoft.Core.Contracts
         Task DeleteAsync(int appTaskId, string userId);
 
 
-        Task AddSparePart (int appTaskId,string machineName,int sparePartId);
+        //Task AddSparePart (int appTaskId,string machineName,int sparePartId);
     }
 }

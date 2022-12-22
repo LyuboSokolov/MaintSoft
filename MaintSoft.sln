@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MaintSoft", "MaintSoft\Main
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MaintSoft.Infrastructure", "MaintSoft.Infrastructure\MaintSoft.Infrastructure.csproj", "{89239256-E6DF-4A28-B4E3-06328C23FED5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaintSoft.Core", "MaintSoft.Core\MaintSoft.Core.csproj", "{8EA1A9C2-C9D7-4B01-83CA-D4E1A9D73A18}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MaintSoft.Core", "MaintSoft.Core\MaintSoft.Core.csproj", "{8EA1A9C2-C9D7-4B01-83CA-D4E1A9D73A18}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaintSoft.Test", "MaintSoft.Test\MaintSoft.Test.csproj", "{68AE9C13-C3E5-494B-93AD-6E1F094F5B57}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{8EA1A9C2-C9D7-4B01-83CA-D4E1A9D73A18}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8EA1A9C2-C9D7-4B01-83CA-D4E1A9D73A18}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8EA1A9C2-C9D7-4B01-83CA-D4E1A9D73A18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68AE9C13-C3E5-494B-93AD-6E1F094F5B57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68AE9C13-C3E5-494B-93AD-6E1F094F5B57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68AE9C13-C3E5-494B-93AD-6E1F094F5B57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68AE9C13-C3E5-494B-93AD-6E1F094F5B57}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
