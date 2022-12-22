@@ -17,5 +17,7 @@ namespace MaintSoft.Core.Models
         [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; } = null!;
+
+        public bool IsDelete { get; set; }
     }
 }

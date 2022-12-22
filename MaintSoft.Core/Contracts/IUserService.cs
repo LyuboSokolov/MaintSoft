@@ -9,5 +9,9 @@ namespace MaintSoft.Core.Contracts
         Task<List<ApplicationUser>> GetAllApplicationUsersAsync();
 
         Task<string> GetUserFullName(string userId);
+
+        Task DeleteById(string userId);
+
+        Task<bool> Exists(string userId);
     }
 }

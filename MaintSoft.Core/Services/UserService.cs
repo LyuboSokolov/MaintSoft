@@ -35,5 +35,21 @@ namespace MaintSoft.Core.Services
 
             return $"{user.FirstName} ${user.LastName}";
         }
+
+        public async Task DeleteById(string userId)
+        {
+           var user = await repo.GetByIdAsync<ApplicationUser>(userId);
+
+            user.IsDelete = true;
+
+            await repo.SaveChangesAsync();
+        }
+
+        public async Task<bool> Exists(string userId)
+        {
+
+            return await repo.AllReadonly<ApplicationUser>()
+                          .AnyAsync(x => x.Id == userId);
+        }
     }
 }

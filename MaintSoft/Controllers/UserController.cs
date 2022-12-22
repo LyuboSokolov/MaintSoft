@@ -83,8 +83,15 @@ namespace MaintSoft.Controllers
                 return View(model);
             }
 
+
             var user = await userManager.FindByEmailAsync(model.Email);
 
+            if (user.IsDelete == true)
+            {
+                ModelState.AddModelError("", "Wrong user!");
+
+                return View(model);
+            }
             if (user != null)
             {
                 var result = await signInManager.PasswordSignInAsync(user, model.Password, false, false);
