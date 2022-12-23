@@ -21,7 +21,7 @@ namespace MaintSoft.Core.Services
 
         public async Task CreateAsync(AddAssetViewModel model, string userId)
         {
-            var applicationUser = await userService.GetApplicationUserByIdAsync(model.ApplicationUserId);
+            var applicationUser = await repo.GetByIdAsync<ApplicationUser>(model.ApplicationUserId);
 
             var asset = new Asset()
             {
