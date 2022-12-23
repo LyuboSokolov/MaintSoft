@@ -18,11 +18,9 @@ using System.ComponentModel.DataAnnotations;
 namespace MaintSoft.Test
 {
     [TestFixture]
-    public class AssetServiceTest
+    public class AssetServiceTests
     {
         private readonly IRepository repo;
-
-
         private IUserService userService;
         private MaintSoftDbContext maintSoftDbContext;
         private IAssetService assetService;
