@@ -124,9 +124,6 @@ namespace MaintSoft.Core.Services
                 appTask.ApplicationUsersAppTasks.Add(new ApplicationUserAppTask { ApplicationUserId = userId });
             }
 
-
-
-
             appTask.StatusId = (status.FirstOrDefault(x => x.Name == "Done")).Id;
             appTask.UpdatedDate = DateTime.Now;
             await repo.SaveChangesAsync();
