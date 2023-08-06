@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using MaintSoft.Infrastructure.Data.Configuration;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography.X509Certificates;
 
@@ -71,6 +72,8 @@ namespace MaintSoft.Infrastructure.Data
             //builder.Entity<Machine>()
             //    .HasIndex(n => n.Name)
             //    .IsUnique();
+
+            builder.ApplyConfiguration(new ApplicationUserConfiguration());
         }
     }
 }

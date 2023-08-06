@@ -4,6 +4,7 @@ using MaintSoft.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MaintSoft.Infrastructure.Migrations
 {
     [DbContext(typeof(MaintSoftDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230806180509_InitializeTest")]
+    partial class InitializeTest
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -120,25 +122,6 @@ namespace MaintSoft.Infrastructure.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "1",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "4bec0ca9-2fd8-4652-b254-42fa1705df30",
-                            Email = "petko@abv.bg",
-                            EmailConfirmed = false,
-                            FirstName = "Petko",
-                            IsDelete = false,
-                            JobPosition = "maintenance technician",
-                            LastName = "Petkov",
-                            LockoutEnabled = false,
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "ce1f2917-f0cf-4533-b538-747452913e07",
-                            TwoFactorEnabled = false,
-                            UserName = "pecata"
-                        });
                 });
 
             modelBuilder.Entity("MaintSoft.Infrastructure.Data.ApplicationUserAppTask", b =>
