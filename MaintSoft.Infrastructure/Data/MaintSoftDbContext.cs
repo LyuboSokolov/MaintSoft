@@ -73,7 +73,23 @@ namespace MaintSoft.Infrastructure.Data
             //    .HasIndex(n => n.Name)
             //    .IsUnique();
 
+            builder.ApplyConfiguration(new StatusConfiguration());
+
             builder.ApplyConfiguration(new ApplicationUserConfiguration());
+
+            builder.ApplyConfiguration(new AssetConfiguration());
+
+            builder.ApplyConfiguration(new MachineConfiguration());
+
+            builder.ApplyConfiguration(new AppTaskConfiguration());
+
+            builder.ApplyConfiguration(new ManufacturerConfiguration());
+
+            builder.ApplyConfiguration(new SparePartConfiguration());
+
+            builder.ApplyConfiguration(new ApplicationUserAppTaskConfiguration());
+
+            builder.ApplyConfiguration(new MachineAppTaskConfiguration());
         }
     }
 }

@@ -11,6 +11,7 @@ namespace MaintSoft.Infrastructure.Data
     public class Asset
     {
         [Key]
+        
         public int Id { get; set; }
 
         [Required]
@@ -35,10 +36,10 @@ namespace MaintSoft.Infrastructure.Data
         public ApplicationUser ApplicationUser { get; set; }
 
         [Required]
-        [MaxLength(256)]
+        [MaxLength(450)]
         public string UserCreatedId { get; set; } = null!;
 
-        [MaxLength(256)]
+        [MaxLength(450)]
         public string? UserDeletedId { get; set; }
 
 

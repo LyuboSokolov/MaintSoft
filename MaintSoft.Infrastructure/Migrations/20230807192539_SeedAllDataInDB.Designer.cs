@@ -4,6 +4,7 @@ using MaintSoft.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MaintSoft.Infrastructure.Migrations
 {
     [DbContext(typeof(MaintSoftDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230807192539_SeedAllDataInDB")]
+    partial class SeedAllDataInDB
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -126,7 +128,7 @@ namespace MaintSoft.Infrastructure.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c1b3980a-2324-4d9a-a2e2-226d1a38ce15",
+                            ConcurrencyStamp = "867d24b4-0da6-408b-b316-c5d42b80c032",
                             Email = "lubo@abv.bg",
                             EmailConfirmed = false,
                             FirstName = "Lyubo",
@@ -136,9 +138,9 @@ namespace MaintSoft.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "lubo@abv.bg",
                             NormalizedUserName = "lubo",
-                            PasswordHash = "AQAAAAEAACcQAAAAEOSVkGOLpuqBOnFzhFl0BVOByjCNfaWeiiUTTewg9o8x7f88ln0LtPLRamoP0BhMig==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEOaBQoU/7uFxDsv51nWci3Ac0qK7MKd0pAnTvXaGAg5+ptfXGWraG2nx003TDzyT9g==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "80fcf018-235f-4cb9-a353-02b292b10a2c",
+                            SecurityStamp = "59fb31c8-211c-4b02-82d3-3af91d596234",
                             TwoFactorEnabled = false,
                             UserName = "lyubo"
                         },
@@ -146,7 +148,7 @@ namespace MaintSoft.Infrastructure.Migrations
                         {
                             Id = "2",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b8d72a76-5bc4-4500-a46f-44f07f26b167",
+                            ConcurrencyStamp = "9476b775-e847-4b45-923e-f79d205e14ef",
                             Email = "ivan@abv.bg",
                             EmailConfirmed = false,
                             FirstName = "Ivan",
@@ -156,9 +158,9 @@ namespace MaintSoft.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ivan@abv.bg",
                             NormalizedUserName = "ivan",
-                            PasswordHash = "AQAAAAEAACcQAAAAED29OVt8rKTfnOq6YFMUwns1xe6kO/3PbjJdjlgpHWDjA6PR39taQCS2dv9Gom1PjA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGV5ci/54SswI6zFWd1YlQfYpSbL88GdEK+am/x8UaA5ZkqRODC9OJYlEo++vit3xA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "9b714191-d408-47a0-a3f7-9861b8a9b97e",
+                            SecurityStamp = "0cd89f21-81b0-4bb8-b4b5-97c95bf46d8b",
                             TwoFactorEnabled = false,
                             UserName = "Ivan"
                         });
@@ -177,18 +179,6 @@ namespace MaintSoft.Infrastructure.Migrations
                     b.HasIndex("AppTaskId");
 
                     b.ToTable("ApplicationUsersAppTasks");
-
-                    b.HasData(
-                        new
-                        {
-                            ApplicationUserId = "1",
-                            AppTaskId = 1
-                        },
-                        new
-                        {
-                            ApplicationUserId = "1",
-                            AppTaskId = 2
-                        });
                 });
 
             modelBuilder.Entity("MaintSoft.Infrastructure.Data.AppTask", b =>
@@ -243,24 +233,24 @@ namespace MaintSoft.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2023, 8, 8, 19, 28, 14, 784, DateTimeKind.Local).AddTicks(960),
+                            CreatedDate = new DateTime(2023, 8, 7, 22, 25, 39, 376, DateTimeKind.Local).AddTicks(580),
                             Description = "Repair clutch",
                             IsDelete = false,
                             Name = "broken clutch",
                             StatusId = 1,
-                            UpdatedDate = new DateTime(2023, 8, 8, 19, 28, 14, 784, DateTimeKind.Local).AddTicks(997),
+                            UpdatedDate = new DateTime(2023, 8, 7, 22, 25, 39, 376, DateTimeKind.Local).AddTicks(617),
                             UserContractorId = "1",
                             UserCreatedId = "1"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2023, 8, 8, 19, 28, 14, 784, DateTimeKind.Local).AddTicks(1003),
+                            CreatedDate = new DateTime(2023, 8, 7, 22, 25, 39, 376, DateTimeKind.Local).AddTicks(625),
                             Description = "Repair contactor",
                             IsDelete = false,
                             Name = "broken contactor",
                             StatusId = 2,
-                            UpdatedDate = new DateTime(2023, 8, 8, 19, 28, 14, 784, DateTimeKind.Local).AddTicks(1005),
+                            UpdatedDate = new DateTime(2023, 8, 7, 22, 25, 39, 376, DateTimeKind.Local).AddTicks(627),
                             UserContractorId = "2",
                             UserCreatedId = "1"
                         });
@@ -308,28 +298,6 @@ namespace MaintSoft.Infrastructure.Migrations
                     b.HasIndex("ApplicationUserId");
 
                     b.ToTable("Assets");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            ApplicationUserId = "2",
-                            Description = "Workstation",
-                            IsAvailable = true,
-                            IsDelete = false,
-                            Name = "Laptop_p50",
-                            UserCreatedId = "2"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            ApplicationUserId = "2",
-                            Description = "smartphone",
-                            IsAvailable = true,
-                            IsDelete = false,
-                            Name = "Samsung_s20",
-                            UserCreatedId = "2"
-                        });
                 });
 
             modelBuilder.Entity("MaintSoft.Infrastructure.Data.Machine", b =>
@@ -428,18 +396,6 @@ namespace MaintSoft.Infrastructure.Migrations
                     b.HasIndex("AppTaskId");
 
                     b.ToTable("MachinesAppTasks");
-
-                    b.HasData(
-                        new
-                        {
-                            MachineId = 1,
-                            AppTaskId = 1
-                        },
-                        new
-                        {
-                            MachineId = 1,
-                            AppTaskId = 2
-                        });
                 });
 
             modelBuilder.Entity("MaintSoft.Infrastructure.Data.Manufacturer", b =>
