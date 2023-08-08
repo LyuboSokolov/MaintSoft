@@ -1,4 +1,5 @@
 ﻿using MaintSoft.Infrastructure.Data.Configuration;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography.X509Certificates;
@@ -90,6 +91,23 @@ namespace MaintSoft.Infrastructure.Data
             builder.ApplyConfiguration(new ApplicationUserAppTaskConfiguration());
 
             builder.ApplyConfiguration(new MachineAppTaskConfiguration());
+
+
+            builder.Entity<IdentityRole>().HasData(
+                new IdentityRole() { Id = "1", Name = "Administrator", ConcurrencyStamp = "e821c43e-236a-4615-a454-7af10dd382e3", NormalizedName = "ADMINISTRATOR" },
+                new IdentityRole() { Id = "2", Name = "Engineer", ConcurrencyStamp = "c20198be-88e7-48e8-a58f-920717c23954", NormalizedName = "ENGINEER" },
+                new IdentityRole() { Id = "3", Name = "Operator", ConcurrencyStamp = "f4124e32-6f00-4b83-895f-d50317234f01", NormalizedName = "Operator" },
+                new IdentityRole() { Id = "4", Name = "User", ConcurrencyStamp = "ba2e85bb-669f-404a-bfe1-b479b75098a9", NormalizedName = "USER" }
+                );
+
+            builder.Entity<IdentityUserRole<string>>().HasData(
+               new IdentityUserRole<string>() { RoleId = "1", UserId = "1" }
+               );
+
+            builder.Entity<IdentityUserRole<string>>().HasData(
+              new IdentityUserRole<string>() { RoleId = "3", UserId = "2" }
+              );
+
         }
     }
 }
