@@ -62,16 +62,35 @@ namespace MaintSoft.Core.Services
             return appTask.Id;
         }
 
-        public async Task<List<AppTask>> GetAllAppTaskAsync()
+        public async Task<List<AppTask>> GetAllAppTaskAsync(string? status = null)
         {
-            return await repo.AllReadonly<AppTask>()
+            //var result = new List<AppTask>();
+            var result = await repo.AllReadonly<AppTask>()
                 .Where(x => x.IsDelete == false)
                 .Include(x => x.Status)
                 .Include(x => x.MachinesAppTasks)
                 .ThenInclude(x => x.Machine)
                 .Include(t => t.ApplicationUsersAppTasks)
-                .ThenInclude(x => x.ApplicationUser)
-                .ToListAsync();
+                .ThenInclude(x => x.ApplicationUser).ToListAsync();
+
+            if (string.IsNullOrEmpty(status) == false)
+            {
+                result = result.Where(x => x.Status.Name == status).ToList();
+            }
+
+
+     
+
+            return result;
+
+            //return await repo.AllReadonly<AppTask>()
+            // .Where(x => x.IsDelete == false)
+            // .Include(x => x.Status)
+            // .Include(x => x.MachinesAppTasks)
+            // .ThenInclude(x => x.Machine)
+            // .Include(t => t.ApplicationUsersAppTasks)
+            // .ThenInclude(x => x.ApplicationUser)
+            // .ToListAsync();
         }
 
         public async Task<bool> Exists(int id)
@@ -141,6 +160,14 @@ namespace MaintSoft.Core.Services
             appTask.IsDelete = true;
             appTask.UserDeleteId = userId;
             await repo.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<string>> AllStatusNames()
+        {
+            return await repo.AllReadonly<Status>()
+                 .Select(x => x.Name)
+                 .Distinct()
+                 .ToListAsync();
         }
 
         //public async Task AddSparePart(int appTaskId, string machineName, int sparePartId)

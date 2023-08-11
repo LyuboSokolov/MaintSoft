@@ -16,7 +16,7 @@ namespace MaintSoft.Core.Models.AppTask
 
         public string? Description { get; set; }
 
-        public string? Status { get; set; }
+        public string? StatusName { get; set; }
 
 
         public string UserCreatedFullName { get; set; } = null!;
@@ -31,8 +31,11 @@ namespace MaintSoft.Core.Models.AppTask
 
         //public List<ApplicationUserAppTask> ApplicationUserAppTasks { get; set; }
 
-        public string MachineName { get; set; }
+        public string MachineName { get; set; } 
 
         public int MachineId { get; set; }
+
+   
     }
 }
+

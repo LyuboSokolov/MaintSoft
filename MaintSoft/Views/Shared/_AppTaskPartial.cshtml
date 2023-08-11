@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AppTaskViewModel>
+﻿@model AllAppTaskQueryModel
 
 
 <table class="table table-bordered table-responsive table-hover">
@@ -18,11 +18,11 @@
         }
 
     </tr>
-    @foreach (var task in Model)
+    @foreach (var task in Model.AppTasks)
     {
         var asd = "none";
 
-        @if (task.Status == "Done")
+        @if (task.StatusName == "Done")
         {
             asd = "background-color: #90ee90";
         }
@@ -31,7 +31,7 @@
             <td>@task.Name</td>
             <td>@task.Description</td>
             <td>@task.MachineName</td>
-            <td>@task.Status</td>
+            <td>@task.StatusName</td>
             <td>@task.UserCreatedFullName</td>
             <td>@task.UserContractorFullName</td>
             <td>@task.CreatedDate</td>

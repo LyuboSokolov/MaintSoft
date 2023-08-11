@@ -11,7 +11,7 @@ namespace MaintSoft.Core.Contracts
 {
     public interface IAppTaskService
     {
-        Task<List<AppTask>> GetAllAppTaskAsync();
+        Task<List<AppTask>> GetAllAppTaskAsync(string? status = null);
 
         Task<int> CreateAsync(AddAppTaskViewModel model,string userId);
 
@@ -28,6 +28,8 @@ namespace MaintSoft.Core.Contracts
         Task CompleteTaskAsync (int appTaskId, string userId);
 
         Task DeleteAsync(int appTaskId, string userId);
+
+        Task<IEnumerable<string>> AllStatusNames();
 
 
         //Task AddSparePart (int appTaskId,string machineName,int sparePartId);

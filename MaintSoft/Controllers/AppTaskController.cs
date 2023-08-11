@@ -3,6 +3,7 @@ using MaintSoft.Core.Models.AppTask;
 using MaintSoft.Core.Services;
 using MaintSoft.Extensions;
 using MaintSoft.Infrastructure.Data;
+using MaintSoft.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -29,16 +30,17 @@ namespace MaintSoft.Controllers
         }
 
 
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All([FromQuery] AllAppTaskQueryModel query)
         {
-            var tasks = await appTaskService.GetAllAppTaskAsync();
+            var tasks = await appTaskService.GetAllAppTaskAsync(query.Status);
             tasks = tasks.OrderByDescending(x => x.CreatedDate).ToList();
-            var models = tasks.Select(t => new AppTaskViewModel()
+            query.AllStatusNames = await appTaskService.AllStatusNames();
+            query.AppTasks = tasks.Select(t => new AppTaskViewModel()
             {
                 Id = t.Id,
                 Name = t.Name,
                 Description = t.Description,
-                Status = t?.Status.Name,
+                StatusName = t?.Status.Name,
                 UserCreatedFullName = (t.ApplicationUsersAppTasks.FirstOrDefault(x => x.ApplicationUserId == t.UserCreatedId))?.ApplicationUser?.FirstName + " " +
             (t.ApplicationUsersAppTasks.FirstOrDefault(x => x.ApplicationUserId == t.UserCreatedId))?.ApplicationUser?.LastName,
                 UserContractorFullName = (t.ApplicationUsersAppTasks.FirstOrDefault(x => x.ApplicationUserId == t?.UserContractorId))?.ApplicationUser?.FirstName + " " +
@@ -48,7 +50,7 @@ namespace MaintSoft.Controllers
                 MachineName = (t.MachinesAppTasks.FirstOrDefault(x => x.MachineId == x.Machine.Id)).Machine.Name
 
             });
-            return View(models);
+            return View(query);
         }
 
         [HttpGet]
