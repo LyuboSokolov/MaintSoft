@@ -150,7 +150,7 @@ namespace MaintSoft.Core.Services
 
         public async Task DeleteAsync(int appTaskId, string userId)
         {
-            var appTask = await GetAppTaskByIdAsync(appTaskId);
+            var appTask = await repo.GetByIdAsync<AppTask>(appTaskId);
 
             if (appTask == null)
             {

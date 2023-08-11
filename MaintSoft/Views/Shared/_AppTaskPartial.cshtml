@@ -26,6 +26,10 @@
         {
             asd = "background-color: #90ee90";
         }
+        @if (task.StatusName == "Stopped")
+        {
+            asd = "background-color: #d8693e9e";
+        }
 
         <tr style="@asd">
             <td>@task.Name</td>
