@@ -32,7 +32,7 @@ namespace MaintSoft.Controllers
 
         public async Task<IActionResult> All([FromQuery] AllAppTaskQueryModel query)
         {
-            var tasks = await appTaskService.GetAllAppTaskAsync(query.Status);
+            var tasks = await appTaskService.GetAllAppTaskAsync(query.Status, query.SearchTerm);
             tasks = tasks.OrderByDescending(x => x.CreatedDate).ToList();
             query.AllStatusNames = await appTaskService.AllStatusNames();
             query.AppTasks = tasks.Select(t => new AppTaskViewModel()

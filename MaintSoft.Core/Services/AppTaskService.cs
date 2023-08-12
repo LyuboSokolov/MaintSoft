@@ -62,24 +62,40 @@ namespace MaintSoft.Core.Services
             return appTask.Id;
         }
 
-        public async Task<List<AppTask>> GetAllAppTaskAsync(string? status = null)
+        public async Task<List<AppTask>> GetAllAppTaskAsync(string? status = null, string? searchTerm = null)
         {
-            //var result = new List<AppTask>();
-            var result = await repo.AllReadonly<AppTask>()
-                .Where(x => x.IsDelete == false)
+            var result = new List<AppTask>();
+            var appTask = repo.AllReadonly<AppTask>()
                 .Include(x => x.Status)
                 .Include(x => x.MachinesAppTasks)
                 .ThenInclude(x => x.Machine)
                 .Include(t => t.ApplicationUsersAppTasks)
-                .ThenInclude(x => x.ApplicationUser).ToListAsync();
+                .ThenInclude(x => x.ApplicationUser)
+                .Where(x => x.IsDelete == false);
 
             if (string.IsNullOrEmpty(status) == false)
             {
-                result = result.Where(x => x.Status.Name == status).ToList();
+                appTask = appTask.Where(x => x.Status.Name == status);
+            }
+            if (string.IsNullOrEmpty(searchTerm) == false)
+            {
+                searchTerm = $"%{searchTerm.ToLower()}%";
+
+                appTask = appTask
+                        .Where(h => EF.Functions.Like(h.Name.ToLower(), searchTerm) ||
+                        EF.Functions.Like(h.Description.ToLower(), searchTerm) ||
+                        EF.Functions.Like(h.Status.Name.ToLower(), searchTerm) ||
+                       h.MachinesAppTasks.Any(m => EF.Functions.Like(m.Machine.Name.ToLower(), searchTerm)) ||
+                       h.ApplicationUsersAppTasks.Any( u => EF.Functions.Like(u.ApplicationUser.FirstName.ToLower(), searchTerm))||
+                       h.ApplicationUsersAppTasks.Any(u => EF.Functions.Like(u.ApplicationUser.LastName.ToLower(), searchTerm)));
+
+                //TODO: Да направя да търси за имена на машини, имена на creator и complited by 
+
+
+
             }
 
-
-     
+            result = await appTask.ToListAsync();
 
             return result;
 
