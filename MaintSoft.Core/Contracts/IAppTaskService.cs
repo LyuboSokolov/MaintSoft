@@ -11,7 +11,7 @@ namespace MaintSoft.Core.Contracts
 {
     public interface IAppTaskService
     {
-        Task<List<AppTask>> GetAllAppTaskAsync(string? status = null, string? searchTerm = null);
+        Task<List<AppTask>> GetAllAppTaskAsync(string? status = null, string? searchTerm = null, AppTaskSorting sorting = AppTaskSorting.Newest);
 
         Task<int> CreateAsync(AddAppTaskViewModel model,string userId);
 

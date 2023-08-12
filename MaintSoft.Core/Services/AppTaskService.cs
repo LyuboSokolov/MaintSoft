@@ -62,7 +62,7 @@ namespace MaintSoft.Core.Services
             return appTask.Id;
         }
 
-        public async Task<List<AppTask>> GetAllAppTaskAsync(string? status = null, string? searchTerm = null)
+        public async Task<List<AppTask>> GetAllAppTaskAsync(string? status = null, string? searchTerm = null, AppTaskSorting sorting = AppTaskSorting.Newest)
         {
             var result = new List<AppTask>();
             var appTask = repo.AllReadonly<AppTask>()
@@ -83,30 +83,25 @@ namespace MaintSoft.Core.Services
 
                 appTask = appTask
                         .Where(h => EF.Functions.Like(h.Name.ToLower(), searchTerm) ||
-                        EF.Functions.Like(h.Description.ToLower(), searchTerm) ||
-                        EF.Functions.Like(h.Status.Name.ToLower(), searchTerm) ||
-                       h.MachinesAppTasks.Any(m => EF.Functions.Like(m.Machine.Name.ToLower(), searchTerm)) ||
-                       h.ApplicationUsersAppTasks.Any( u => EF.Functions.Like(u.ApplicationUser.FirstName.ToLower(), searchTerm))||
-                       h.ApplicationUsersAppTasks.Any(u => EF.Functions.Like(u.ApplicationUser.LastName.ToLower(), searchTerm)));
-
-                //TODO: Да направя да търси за имена на машини, имена на creator и complited by 
-
-
+                                    EF.Functions.Like(h.Description.ToLower(), searchTerm) ||
+                                    EF.Functions.Like(h.Status.Name.ToLower(), searchTerm) ||
+                                    h.MachinesAppTasks.Any(m => EF.Functions.Like(m.Machine.Name.ToLower(), searchTerm)) ||
+                                    h.ApplicationUsersAppTasks.Any(u => EF.Functions.Like(u.ApplicationUser.FirstName.ToLower(), searchTerm)) ||
+                                    h.ApplicationUsersAppTasks.Any(u => EF.Functions.Like(u.ApplicationUser.LastName.ToLower(), searchTerm)));
 
             }
+
+            appTask = sorting switch
+            {
+                AppTaskSorting.Oldest => appTask
+                    .OrderBy(x => x.CreatedDate),
+                _ => appTask.OrderByDescending(h => h.CreatedDate)
+            };
 
             result = await appTask.ToListAsync();
 
             return result;
 
-            //return await repo.AllReadonly<AppTask>()
-            // .Where(x => x.IsDelete == false)
-            // .Include(x => x.Status)
-            // .Include(x => x.MachinesAppTasks)
-            // .ThenInclude(x => x.Machine)
-            // .Include(t => t.ApplicationUsersAppTasks)
-            // .ThenInclude(x => x.ApplicationUser)
-            // .ToListAsync();
         }
 
         public async Task<bool> Exists(int id)

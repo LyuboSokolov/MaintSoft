@@ -21,21 +21,20 @@
             </div>
         </div>
 
-       <div class="form-group col-md-3">
-        <label asp-for="SearchTerm">Search</label>
-        <input asp-for="SearchTerm" class="form-control" placeholder="...">
-        </div>
-        @*
         <div class="form-group col-md-3">
-        <div class="form-group">
-        <label asp-for="Sorting"></label>
-        <select asp-for="Sorting" class="form-control">
-        <option value="0">Newest</option>
-        <option value="1">Lowest price first</option>
-        <option value="2">Not rented first</option>
-        </select>
+            <label asp-for="SearchTerm">Search</label>
+            <input asp-for="SearchTerm" class="form-control" placeholder="...">
         </div>
-        </div>*@
+
+        <div class="form-group col-md-3">
+            <div class="form-group">
+                <label asp-for="Sorting">Sorting by date</label>
+                <select asp-for="Sorting" class="form-control">
+                    <option value="0">Newest</option>
+                    <option value="1">Oldest</option>
+                </select>
+            </div>
+        </div>
 
         <div class="col-md-3">
             <div class="form-group mt-4 p-2">

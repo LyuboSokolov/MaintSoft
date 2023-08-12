@@ -11,7 +11,7 @@ namespace MaintSoft.Models
 
         public string? SearchTerm { get; set; }
 
-        public Status Sorting { get; set; }
+        public AppTaskSorting Sorting { get; set; }
 
         public int CurrentPage { get; set; } = 1;
 
