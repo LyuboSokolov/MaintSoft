@@ -62,9 +62,10 @@ namespace MaintSoft.Core.Services
             return appTask.Id;
         }
 
-        public async Task<List<AppTask>> GetAllAppTaskAsync(string? status = null, string? searchTerm = null, AppTaskSorting sorting = AppTaskSorting.Newest)
+        public async Task<AppTasksQueryModel> GetAllAppTaskAsync(string? status = null, string? searchTerm = null,
+            AppTaskSorting sorting = AppTaskSorting.Newest, int currentPage = 1, int appTaskPerPage = 1)
         {
-            var result = new List<AppTask>();
+            var result = new AppTasksQueryModel();
             var appTask = repo.AllReadonly<AppTask>()
                 .Include(x => x.Status)
                 .Include(x => x.MachinesAppTasks)
@@ -98,7 +99,26 @@ namespace MaintSoft.Core.Services
                 _ => appTask.OrderByDescending(h => h.CreatedDate)
             };
 
-            result = await appTask.ToListAsync();
+            result.AppTasks = await appTask
+                .Skip((currentPage - 1) * appTaskPerPage)
+                .Take(appTaskPerPage)
+                .Select(t => new AppTaskViewModel()
+                {
+                    Id = t.Id,
+                    Name = t.Name,
+                    Description = t.Description,
+                    StatusName = t.Status.Name,
+                    UserCreatedFullName = (t.ApplicationUsersAppTasks.FirstOrDefault(x => x.ApplicationUserId == t.UserCreatedId)).ApplicationUser.FirstName + " " +
+            (t.ApplicationUsersAppTasks.FirstOrDefault(x => x.ApplicationUserId == t.UserCreatedId)).ApplicationUser.LastName,
+                    UserContractorFullName = (t.ApplicationUsersAppTasks.FirstOrDefault(x => x.ApplicationUserId == t.UserContractorId)).ApplicationUser.FirstName + " " +
+            (t.ApplicationUsersAppTasks.FirstOrDefault(x => x.ApplicationUserId == t.UserContractorId)).ApplicationUser.LastName,
+                    CreatedDate = t.CreatedDate,
+                    UpdatedDate = t.UpdatedDate,
+                    MachineName = (t.MachinesAppTasks.FirstOrDefault(x => x.MachineId == x.Machine.Id)).Machine.Name
+                })
+                .ToListAsync();
+
+            result.TotalAppTasksCount = await appTask.CountAsync();
 
             return result;
 
@@ -180,6 +200,7 @@ namespace MaintSoft.Core.Services
                  .Distinct()
                  .ToListAsync();
         }
+
 
         //public async Task AddSparePart(int appTaskId, string machineName, int sparePartId)
         //{

@@ -32,24 +32,17 @@ namespace MaintSoft.Controllers
 
         public async Task<IActionResult> All([FromQuery] AllAppTaskQueryModel query)
         {
-            var tasks = await appTaskService.GetAllAppTaskAsync(query.Status, query.SearchTerm, query.Sorting);
+            var tasks = await appTaskService.GetAllAppTaskAsync(
+                                                                 query.Status,
+                                                                 query.SearchTerm,
+                                                                 query.Sorting,
+                                                                 query.CurrentPage,
+                                                                 AllAppTaskQueryModel.AppTasksPerPage);
 
             query.AllStatusNames = await appTaskService.AllStatusNames();
-            query.AppTasks = tasks.Select(t => new AppTaskViewModel()
-            {
-                Id = t.Id,
-                Name = t.Name,
-                Description = t.Description,
-                StatusName = t?.Status.Name,
-                UserCreatedFullName = (t.ApplicationUsersAppTasks.FirstOrDefault(x => x.ApplicationUserId == t.UserCreatedId))?.ApplicationUser?.FirstName + " " +
-            (t.ApplicationUsersAppTasks.FirstOrDefault(x => x.ApplicationUserId == t.UserCreatedId))?.ApplicationUser?.LastName,
-                UserContractorFullName = (t.ApplicationUsersAppTasks.FirstOrDefault(x => x.ApplicationUserId == t?.UserContractorId))?.ApplicationUser?.FirstName + " " +
-            (t.ApplicationUsersAppTasks.FirstOrDefault(x => x.ApplicationUserId == t?.UserContractorId))?.ApplicationUser?.LastName,
-                CreatedDate = t.CreatedDate,
-                UpdatedDate = t.UpdatedDate,
-                MachineName = (t.MachinesAppTasks.FirstOrDefault(x => x.MachineId == x.Machine.Id)).Machine.Name
-
-            });
+            query.TotalAppTasksCount = tasks.TotalAppTasksCount;
+            query.AppTasks = tasks.AppTasks;
+           
             return View(query);
         }
 

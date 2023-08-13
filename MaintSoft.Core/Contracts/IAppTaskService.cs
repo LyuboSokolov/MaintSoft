@@ -11,7 +11,7 @@ namespace MaintSoft.Core.Contracts
 {
     public interface IAppTaskService
     {
-        Task<List<AppTask>> GetAllAppTaskAsync(string? status = null, string? searchTerm = null, AppTaskSorting sorting = AppTaskSorting.Newest);
+        Task<AppTasksQueryModel> GetAllAppTaskAsync(string? status = null, string? searchTerm = null, AppTaskSorting sorting = AppTaskSorting.Newest, int currentPage = 1, int appTaskPerPage = 1);
 
         Task<int> CreateAsync(AddAppTaskViewModel model,string userId);
 
@@ -31,7 +31,7 @@ namespace MaintSoft.Core.Contracts
 
         Task<IEnumerable<string>> AllStatusNames();
 
-
+     
         //Task AddSparePart (int appTaskId,string machineName,int sparePartId);
     }
 }

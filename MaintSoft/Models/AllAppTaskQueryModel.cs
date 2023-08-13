@@ -5,7 +5,7 @@ namespace MaintSoft.Models
 {
     public class AllAppTaskQueryModel
     {
-        public const int AppTasksPerPage = 3;
+        public const int AppTasksPerPage = 4;
 
         public string? Status { get; set; }
 
