@@ -10,5 +10,7 @@
         public string? JobPosition { get; init; } = null;
 
         public bool IsDelete { get; set; } = false;
+
+        public IEnumerable<string> Role { get; init; } = null!;
     }
 }

@@ -27,7 +27,6 @@ namespace MaintSoft.Controllers
             userManager = _userManager;
             signInManager = _signInManager;
             repo = _repo;
-
         }
 
         [AllowAnonymous]
@@ -98,8 +97,17 @@ namespace MaintSoft.Controllers
                 return View(model);
             }
 
-
+         
             var user = await userManager.FindByEmailAsync(model.Email);
+            //TODO
+            var userRole = await userManager.GetRolesAsync(user);
+
+            if (user == null)
+            {
+                ModelState.AddModelError("", "Wrong user!");
+
+                return View(model);
+            }
 
             if (user.IsDelete == true)
             {

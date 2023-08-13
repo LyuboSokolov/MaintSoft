@@ -1,6 +1,7 @@
 ﻿using MaintSoft.Core.Contracts;
 using MaintSoft.Infrastructure.Data;
 using MaintSoft.Infrastructure.Data.Common;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace MaintSoft.Core.Services
@@ -56,5 +57,6 @@ namespace MaintSoft.Core.Services
         {
             return await repo.AllReadonly<ApplicationUser>().FirstOrDefaultAsync(x => x.Email == email);
         }
+
     }
 }

@@ -41,7 +41,7 @@ namespace MaintSoft.Controllers
             {
                 await machineService.CreateAsync(model, User.Id());
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("All", "Machine");
             }
             catch (Exception)
             {
