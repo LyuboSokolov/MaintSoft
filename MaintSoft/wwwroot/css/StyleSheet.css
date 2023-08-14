@@ -1,0 +1,16 @@
+﻿body {
+    background-image: url("../image/cover.jpeg");
+    background-size:cover;
+    background-repeat:no-repeat;
+    background-position: center center;
+   
+}
+
+
+
+.index-title {
+    font-weight: 700;
+    background: rgb(142,174,213);
+    background: radial-gradient(circle, rgba(142,174,213,1) 5%, rgba(89,139,212,1) 35%, rgba(62,138,226,1) 100%);
+    border-radius: 20px;
+}

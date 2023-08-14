@@ -25,17 +25,17 @@
         }
     </select>
 }*@
-<div>
+<div class="datailsTask">
     @if (Model.Status == "In Process")
     {
         <form class="input-group-sm" style="display: inline-block" asp-route-taskId="@Model.Id" asp-route-machineName="@Model.MachineName" asp-controller="AppTask" asp-action="StartStopTask" method="post">
-            <input type="submit" value="Stop" class="fs-6 btn btn-danger mb-3 p-2" />
+            <input type="submit" value="Stop" class="fs-6 btn btn-danger p-2" />
         </form>
     }
     else if (Model.Status == "New" || Model.Status == "Stopped")
     {
         <form class="input-group-sm" style="display: inline-block" asp-route-taskId="@Model.Id" asp-route-machineName="@Model.MachineName" asp-controller="AppTask" asp-action="StartStopTask" method="post">
-            <input type="submit" value="Start" class="fs-6 btn btn-success mb-3 p-2" />
+            <input type="submit" value="Start" class="fs-6 btn btn-success p-2" />
         </form>
     }
 

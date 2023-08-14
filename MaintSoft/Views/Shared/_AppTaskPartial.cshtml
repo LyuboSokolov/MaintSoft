@@ -2,7 +2,7 @@
 
 
 <table class="table table-bordered table-responsive table-hover">
-    <tr>
+    <tr style="background-color:antiquewhite">
         <th>Task</th>
         <th>Description</th>
         <th>Machine</th>
@@ -30,7 +30,14 @@
         {
             asd = "background-color: #d8693e9e";
         }
-
+        @if (task.StatusName == "In Process")
+        {
+            asd = "background-color: #ffff00d6";
+        }
+        @if (task.StatusName == "New")
+        {
+            asd = "background-color: white";
+        }
         <tr style="@asd">
             <td>@task.Name</td>
             <td>@task.Description</td>
