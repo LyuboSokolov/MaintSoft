@@ -1,10 +1,11 @@
 ﻿using MaintSoft.Areas.Admin.Models;
 using MaintSoft.Core.Contracts;
-using MaintSoft.Core.Services;
 using MaintSoft.Extensions;
 using MaintSoft.Infrastructure.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Data;
 
 namespace MaintSoft.Areas.Admin.Controllers
 {
@@ -12,24 +13,26 @@ namespace MaintSoft.Areas.Admin.Controllers
     {
         private readonly IUserService userService;
         private readonly UserManager<ApplicationUser> userManager;
-
+        private readonly RoleManager<IdentityRole> roleManager;
         public UserController(IUserService _userService,
-           UserManager<ApplicationUser> _userManager )
+           UserManager<ApplicationUser> _userManager,
+           RoleManager<IdentityRole> _roleManager)
         {
             userService = _userService;
             userManager = _userManager;
+            roleManager = _roleManager;
         }
 
         public async Task<IActionResult> All()
         {
             var allUsers = await userService.GetAllApplicationUsersAsync();
-     
+
             var result = new List<UserServiceModel>();
 
-            foreach(var user in allUsers )
+            foreach (var user in allUsers)
             {
 
-                result.Add( new UserServiceModel()
+                result.Add(new UserServiceModel()
                 {
                     UserId = user.Id,
                     Email = user.Email,
@@ -40,19 +43,8 @@ namespace MaintSoft.Areas.Admin.Controllers
                 });
             }
 
-          result = result.Where(x => x.UserId != User.Id()).ToList();
+            result = result.Where(x => x.UserId != User.Id()).ToList();
 
-            //var model = allUsers.Where(x => x.Id != User.Id())
-            //    .Select(x => new UserServiceModel()
-            //    {
-            //        UserId = x.Id,
-            //        Email = x.Email,
-            //        FullName = $"{x.FirstName} {x.LastName}",
-            //        JobPosition = x.JobPosition,
-            //        //  Role =  userManager.GetRolesAsync(x)
-
-            //    });
-               
             return View(result);
         }
 
@@ -67,5 +59,59 @@ namespace MaintSoft.Areas.Admin.Controllers
 
             return RedirectToAction(nameof(All));
         }
+
+        [HttpGet]
+        public async Task<IActionResult> EditRole(string userId)
+        {
+            if (await userService.Exists(userId) == false)
+            {
+                return RedirectToAction(nameof(All));
+            }
+            var user = await userService.GetApplicationUserByIdAsync(userId);
+
+            var model = new UserEditModel()
+            {
+                Id = user.Id,
+                UserName = user.UserName,
+                Email = user.Email,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                JobPosition = user.JobPosition,
+                RoleName = (await userManager.GetRolesAsync(user)).SingleOrDefault(),
+                AllRoles = await roleManager.Roles.ToListAsync()
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditRole(string userId, UserEditModel model)
+        {
+            if (userId != model.Id)
+            {
+                return RedirectToPage("/Account/AccessDenied", new { area = "Identity" });
+            }
+
+            if ((await userService.Exists(model.Id)) == false)
+            {
+                ModelState.AddModelError("", "User does not exist!");
+                return View(model);
+            }
+
+            if (!ModelState.IsValid)
+            {
+                model.AllRoles = await roleManager.Roles.ToListAsync();
+                return View(model);
+            }
+
+            var user = await userService.EditUser(userId, model.FirstName, model.LastName, model.JobPosition);
+
+            var role = (await userManager.GetRolesAsync(user)).FirstOrDefault();
+            await userManager.RemoveFromRoleAsync(user, role);
+            await userManager.AddToRoleAsync(user, model.RoleName);
+
+            return RedirectToAction(nameof(All));
+        }
+
     }
 }

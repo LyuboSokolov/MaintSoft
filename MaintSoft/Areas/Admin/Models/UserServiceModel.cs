@@ -1,4 +1,6 @@
-﻿namespace MaintSoft.Areas.Admin.Models
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace MaintSoft.Areas.Admin.Models
 {
     public class UserServiceModel
     {
@@ -12,5 +14,7 @@
         public bool IsDelete { get; set; } = false;
 
         public IEnumerable<string> Role { get; init; } = null!;
+
+      
     }
 }

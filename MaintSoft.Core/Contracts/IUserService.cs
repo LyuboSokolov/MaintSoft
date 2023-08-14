@@ -15,5 +15,7 @@ namespace MaintSoft.Core.Contracts
         Task<bool> Exists(string userId);
 
         Task<ApplicationUser> GetApplicationUserByEmail(string email);
+
+        Task<ApplicationUser> EditUser(string userId, string firstName, string lastName, string jobPosition);
     }
 }

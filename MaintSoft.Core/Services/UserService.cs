@@ -58,5 +58,16 @@ namespace MaintSoft.Core.Services
             return await repo.AllReadonly<ApplicationUser>().FirstOrDefaultAsync(x => x.Email == email);
         }
 
+        public async Task<ApplicationUser> EditUser(string userId, string firstName, string lastName, string jobPosition)
+        {
+            var user = await repo.GetByIdAsync<ApplicationUser>(userId);
+            user.FirstName = firstName;
+            user.LastName = lastName;
+            user.JobPosition = jobPosition;
+            await repo.SaveChangesAsync();
+
+            return user;
+        }
+
     }
 }

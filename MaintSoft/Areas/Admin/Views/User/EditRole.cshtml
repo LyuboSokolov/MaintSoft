@@ -1,0 +1,71 @@
+﻿@model UserEditModel
+
+@{
+    ViewBag.Title = "Edit User";
+}
+
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<div class="row">
+    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+        <form asp-action="Edit" method="post">
+            <input type="hidden" asp-for="@Model.Id" />
+            <div class="mb-3">
+                <label asp-for="@Model.UserName" class="form-label">User Name</label>
+                <input asp-for="@Model.UserName" class="form-control" aria-required="true" disabled="disabled" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.FirstName" class="form-label">First Name</label>
+                <input asp-for="@Model.FirstName" class="form-control" aria-required="true" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+       
+            <div class="mb-3">
+                <label asp-for="@Model.LastName" class="form-label">Last Name</label>
+                <input asp-for="@Model.LastName" class="form-control" aria-required="true" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.Email" class="form-label">Email</label>
+                <input asp-for="@Model.Email" class="form-control" aria-required="true" disabled="disabled" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.JobPosition" class="form-label">Position</label>
+                <input asp-for="@Model.JobPosition" class="form-control" aria-required="true" />
+                <span asp-validation-for="JobPosition" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.RoleName" class="form-label">Role</label>
+                <select asp-for="@Model.RoleName" class="form-control">
+                    @foreach (var role in Model.AllRoles)
+                    {
+                        if (Model.RoleName == role.Name)
+                        {
+                            <option value="@role.Name" selected>@role.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@role.Name">@role.Name</option>
+                        }
+
+                    }
+                </select>
+                <span asp-validation-for="RoleName" class="text-danger"></span>
+
+            </div>
+
+            <div class="mb-3">
+                <input asp-route-userId="@Model.Id" class="btn btn-primary" type="submit" value="Save" />
+            </div>
+        </form>
+
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
