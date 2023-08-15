@@ -1,11 +1,15 @@
 ﻿body {
     background-image: url("../image/cover.jpeg");
-    background-size:cover;
-    background-repeat:no-repeat;
+    background-size: cover;
+    background-repeat: no-repeat;
     background-position: center center;
-   
+    /*   background: rgb(142,174,213);
+    background: radial-gradient(circle, rgba(142,174,213,1) 5%, rgba(89,139,212,1) 35%, rgba(62,138,226,1) 100%)*/
 }
 
+header {
+    background-color: antiquewhite;
+}
 
 
 .index-title {
@@ -13,4 +17,66 @@
     background: rgb(142,174,213);
     background: radial-gradient(circle, rgba(142,174,213,1) 5%, rgba(89,139,212,1) 35%, rgba(62,138,226,1) 100%);
     border-radius: 20px;
+    color: white;
+}
+
+
+h1.title-app {
+    color: white;
+    font-weight: 700;
+}
+
+h2.title-app {
+    color: white;
+}
+
+.form-app {
+    background: rgb(142,174,213);
+    background: radial-gradient(circle, rgba(142,174,213,1) 5%, rgba(89,139,212,1) 35%, rgba(62,138,226,1) 100%);
+    border-radius: 1rem;
+    padding: 5px 10px;
+}
+
+
+.form-app-user {
+    background: rgb(142,174,213);
+    background: radial-gradient(circle, rgba(142,174,213,1) 5%, rgba(89,139,212,1) 35%, rgba(62,138,226,1) 100%);
+    border-radius: 1rem;
+    padding: 0px 10px 10px 10px;
+}
+
+.row {
+    justify-content:space-between;
+}
+
+
+
+table {
+    background-color: lightgrey;
+}
+
+
+tr:first-child {
+    background-color: antiquewhite;
+}
+
+.form-group label {
+    color:white;
+}
+
+.col-md-3 {
+ 
+   width:20%;
+ 
+}
+
+.search-button {
+   width:10%;
+    margin-left:auto;
+    margin-right:auto;
+  
+    
+}
+.status {
+    width:200px;
 }

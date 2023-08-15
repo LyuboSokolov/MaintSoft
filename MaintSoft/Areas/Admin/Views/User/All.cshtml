@@ -4,11 +4,11 @@
     ViewBag.Title = "All Users";
 }
 
-<h2 class="text-center">@ViewBag.Title</h2>
+<h2 class="text-center title-app">@ViewBag.Title</h2>
 <hr />
 
 <table class="table table-striped">
-    <thead>
+    <tbody>
         <tr>
             <th><label>Email</label></th>
             <th><label>Full Name</label></th>
@@ -17,8 +17,6 @@
             <th><label>Edit User</label></th>
             <th><label>Delete User</label></th>
         </tr>
-    </thead>
-    <tbody>
         @foreach (var user in Model)
         {
             <tr>
@@ -27,7 +25,7 @@
                 <td><label>@user.JobPosition</label></td>
                 <td><label>@user.Role.SingleOrDefault()</label></td>
                 <td>
-                  
+
                     <a class="btn btn-warning" asp-controller="User" asp-action="EditRole"
                    asp-route-userId="@user.UserId">Edit</a>
                 </td>
