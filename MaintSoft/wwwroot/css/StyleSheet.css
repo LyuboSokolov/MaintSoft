@@ -3,14 +3,11 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
-    /*   background: rgb(142,174,213);
-    background: radial-gradient(circle, rgba(142,174,213,1) 5%, rgba(89,139,212,1) 35%, rgba(62,138,226,1) 100%)*/
 }
 
 header {
     background-color: antiquewhite;
 }
-
 
 .index-title {
     font-weight: 700;
@@ -19,7 +16,6 @@ header {
     border-radius: 20px;
     color: white;
 }
-
 
 h1.title-app {
     color: white;
@@ -37,7 +33,6 @@ h2.title-app {
     padding: 5px 10px;
 }
 
-
 .form-app-user {
     background: rgb(142,174,213);
     background: radial-gradient(circle, rgba(142,174,213,1) 5%, rgba(89,139,212,1) 35%, rgba(62,138,226,1) 100%);
@@ -45,38 +40,85 @@ h2.title-app {
     padding: 0px 10px 10px 10px;
 }
 
-.row {
-    justify-content:space-between;
+.app-task {
+    justify-content: space-between;
 }
 
+.datailsTask {
+    margin-top: 1rem;
+}
 
+    .datailsTask a {
+        height: 40px;
+        width: 90px;
+        margin-right: 1.5rem;
+        color: black;
+    }
+
+    .datailsTask input {
+        height: 40px;
+        margin-right: 1.5rem;
+    }
+
+.container-appTask {
+    background-color: antiquewhite;
+    margin-top: 2rem;
+    max-width: 60%;
+    padding: 10px;
+}
 
 table {
     background-color: lightgrey;
 }
 
+    table tr {
+        overflow: hidden;
+    }
 
 tr:first-child {
     background-color: antiquewhite;
 }
 
 .form-group label {
-    color:white;
+    color: white;
 }
 
 .col-md-3 {
- 
-   width:20%;
- 
+    width: 20%;
 }
 
 .search-button {
-   width:10%;
-    margin-left:auto;
-    margin-right:auto;
-  
-    
+    width: 10%;
+    margin-left: auto;
+    margin-right: auto;
 }
+
 .status {
-    width:200px;
+    width: 200px;
+}
+
+.btn-app {
+    margin-top: 5px;
+    background-color: #c5c5c5;
+    color: black;
+}
+
+.container-details {
+    display: inline-block;
+}
+
+div.details-machine {
+    width: 25%;
+}
+
+.container-details a {
+    margin-bottom: 10px;
+    height: 40px;
+    width: 75px;
+}
+
+#btn-delete-app {
+    margin-bottom: 10px;
+    width: 75px;
+    padding: 0.4rem 0.5rem;
 }

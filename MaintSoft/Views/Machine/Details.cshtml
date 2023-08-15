@@ -9,8 +9,8 @@
 
 <div class="container" style="display:inline">
     <div class="row">
-        <div class="col-4">
-            <img class="card-img-top" style="width: 20rem;"
+        <div class="col-4 details-machine">
+            <img class="card-img-top" style="width: 20rem; height:20rem;"
                  src="@Model.ImageUrl" alt="House Image">
         </div>
         <div class="card col-8 border-0">
@@ -19,21 +19,19 @@
             <p>Code number: <b>@Model.Code</b></p>
 
             <p>Description: <b>@Model.Description</b></p>
+            <div class="container-details">
+                @if (this.User.Identity.IsAuthenticated)
+                {
 
-            @if (this.User.Identity.IsAuthenticated)
-            {
-               
                     <a class="btn btn-warning" asp-controller="Machine" asp-action="Edit"
                    asp-route-machineId="@Model.Id">Edit</a>
-         
 
-
-                <form class="ml-2 input-group-sm" asp-route-machineId="@Model.Id" asp-controller="Machine" asp-action="Delete" method="post">
-                    <input type="submit" value="Delete" class="ml-2 btn btn-danger" />
-                </form>
-            }
-            <a class="ml-2 btn btn-outline-primary" asp-controller="Machine" asp-action="All">Cancel</a>
-         
+                    <form class="ml-2 input-group-sm" asp-route-machineId="@Model.Id" asp-controller="Machine" asp-action="Delete" method="post">
+                        <input type="submit" id="btn-delete-app" value="Delete" class="ml-2 btn btn-danger" />
+                    </form>
+                }
+                <a class="ml-2 btn btn-outline-primary" asp-controller="Machine" asp-action="All">Cancel</a>
+            </div>
         </div>
         <p></p>
 

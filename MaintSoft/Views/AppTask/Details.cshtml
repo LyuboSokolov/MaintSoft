@@ -6,15 +6,16 @@
 }
 
 <h2 class="text-center title-app">@ViewBag.Title</h2>
+<div class="container-appTask">
+    <div>Creator: <b>@Model.UserCreatedFullName</b></div>
+    <div>Description: <b>@Model.Description</b></div>
+    <div>Created Date: <b>@Model.CreatedDate</b></div>
 
-<div>Creator: <b>@Model.UserCreatedFullName</b></div>
-<div>Description: <b>@Model.Description</b></div>
-<div>Created Date: <b>@Model.CreatedDate</b></div>
-@if (Model.UpdatedDate != null)
-{
-    <div>Update Date: <b>@Model.UpdatedDate</b></div>
-}
-
+    @if (Model.UpdatedDate != null)
+    {
+        <div>Update Date: <b>@Model.UpdatedDate</b></div>
+    }
+</div>
 
 @*@if (Model.Status != "Done")
 {
