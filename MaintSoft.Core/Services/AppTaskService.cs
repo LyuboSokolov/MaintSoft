@@ -3,9 +3,6 @@ using MaintSoft.Core.Models.AppTask;
 using MaintSoft.Infrastructure.Data;
 using MaintSoft.Infrastructure.Data.Common;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection.PortableExecutable;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace MaintSoft.Core.Services
 {

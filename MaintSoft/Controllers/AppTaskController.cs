@@ -1,12 +1,9 @@
 ﻿using MaintSoft.Core.Contracts;
 using MaintSoft.Core.Models.AppTask;
-using MaintSoft.Core.Services;
 using MaintSoft.Extensions;
-using MaintSoft.Infrastructure.Data;
 using MaintSoft.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace MaintSoft.Controllers
 {
@@ -33,16 +30,16 @@ namespace MaintSoft.Controllers
         public async Task<IActionResult> All([FromQuery] AllAppTaskQueryModel query)
         {
             var tasks = await appTaskService.GetAllAppTaskAsync(
-                                                                 query.Status,
-                                                                 query.SearchTerm,
-                                                                 query.Sorting,
-                                                                 query.CurrentPage,
-                                                                 AllAppTaskQueryModel.AppTasksPerPage);
-
-            query.AllStatusNames = await appTaskService.AllStatusNames();
+                                                   query.Status,
+                                                   query.SearchTerm,
+                                                   query.Sorting,
+                                                   query.CurrentPage,
+                                                   AllAppTaskQueryModel.AppTasksPerPage);
             query.TotalAppTasksCount = tasks.TotalAppTasksCount;
             query.AppTasks = tasks.AppTasks;
-           
+
+            query.AllStatusNames = await appTaskService.AllStatusNames();
+
             return View(query);
         }
 

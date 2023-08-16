@@ -1,12 +1,9 @@
-﻿using MaintSoft.Core.Contracts;
-using MaintSoft.Core.Models;
-using MaintSoft.Core.Services;
+﻿using MaintSoft.Core.Models;
 using MaintSoft.Infrastructure.Data;
 using MaintSoft.Infrastructure.Data.Common;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Data;
 
 namespace MaintSoft.Controllers
 {
@@ -15,18 +12,13 @@ namespace MaintSoft.Controllers
     {
         private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> signInManager;
-        private readonly IRepository repo;
-
-
 
         public UserController(
             UserManager<ApplicationUser> _userManager,
-            SignInManager<ApplicationUser> _signInManager,
-           IRepository _repo)
+            SignInManager<ApplicationUser> _signInManager)
         {
             userManager = _userManager;
             signInManager = _signInManager;
-            repo = _repo;
         }
 
         [AllowAnonymous]
@@ -42,7 +34,6 @@ namespace MaintSoft.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
-
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -60,7 +51,6 @@ namespace MaintSoft.Controllers
 
             var result = await userManager.CreateAsync(user, model.Password);
 
-
             if (result.Succeeded)
             {
                 await userManager.AddToRoleAsync(user, "User");
@@ -68,7 +58,6 @@ namespace MaintSoft.Controllers
                 await signInManager.PasswordSignInAsync(user, model.Password, false, false);
                 return RedirectToAction("Index", "Home");
             }
-
 
             foreach (var item in result.Errors)
             {
@@ -97,10 +86,7 @@ namespace MaintSoft.Controllers
                 return View(model);
             }
 
-         
             var user = await userManager.FindByEmailAsync(model.Email);
-            //TODO
-            var userRole = await userManager.GetRolesAsync(user);
 
             if (user == null)
             {
