@@ -52,16 +52,17 @@
                     <input type="submit" value="Details" class="fs-6 btn btn-info mb-3 p-2" />
                 </form>
             </td>
+
             @if (User.IsInRole("Administrator") || User.IsInRole("Engineer"))
             {
                 <td>
-                    <form class="input-group-sm" asp-route-appTaskId="@task.Id" asp-route-machineName="@task.MachineName" asp-controller="AppTask" asp-action="Delete" method="post">
+                    <form class="input-group-sm" onsubmit="Test()" asp-route-appTaskId="@task.Id" asp-route-machineName="@task.MachineName" asp-controller="AppTask" asp-action="Delete" method="post">
                         <input type="submit" value="Delete" class="fs-6 btn btn-danger mb-3 p-2" />
 
                     </form>
                 </td>
             }
-
         </tr>
     }
 </table>
+

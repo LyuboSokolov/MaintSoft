@@ -14,27 +14,27 @@
             <div class="mb-3">
                 <label asp-for="@Model.Name" class="form-label">Name</label>
                 <input asp-for="@Model.Name" class="form-control" aria-required="true" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <span asp-validation-for="Name" class="invalid-input"></span>
             </div>
             <div class="mb-3">
                 <label asp-for="@Model.VAT" class="form-label">VAT</label>
                 <input asp-for="@Model.VAT" class="form-control" aria-required="true" />
-                <span asp-validation-for="VAT" class="text-danger"></span>
+                <span asp-validation-for="VAT" class="invalid-input"></span>
             </div>
             <div class="mb-3">
                 <label asp-for="@Model.Contacts" class="form-label">Contacts</label>
                 <textarea asp-for="@Model.Contacts" class="form-control" aria-required="true" rows="5"></textarea>
-                <span asp-validation-for="Contacts" class="text-danger"></span>
+                <span asp-validation-for="Contacts" class="invalid-input"></span>
             </div>
             <div class="mb-3">
                 <label asp-for="@Model.Address" class="form-label">Address</label>
                 <input asp-for="@Model.Address" class="form-control" aria-required="true" />
-                <span asp-validation-for="Address" class="text-danger"></span>
+                <span asp-validation-for="Address" class="invalid-input"></span>
             </div>
             <div class="mb-3">
                 <label asp-for="@Model.Description" class="form-label">Description</label>
                 <input asp-for="@Model.Description" class="form-control" value="" />
-                <span asp-validation-for="Description" class="text-danger"></span>
+                <span asp-validation-for="Description" class="invalid-input"></span>
             </div>
             <div class="mb-3">
                 <input class="btn btn-success" type="submit" value="Add" />

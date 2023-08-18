@@ -32,8 +32,6 @@ namespace MaintSoft.Core.Services
 
         public async Task<int> CreateAsync(AddAppTaskViewModel model, string userId)
         {
-            //var status = await GetStatusByIdAsync(model.StatusId);
-            //var machine = await machineService.GetMachineByIdAsync(model.MachineId);
             var appTask = new AppTask()
             {
                 Name = model.Name,
@@ -50,11 +48,20 @@ namespace MaintSoft.Core.Services
                 appTask.UserContractorId = userId;
                 appTask.UpdatedDate = DateTime.Now;
             }
+            try
+            {
+                await repo.AddAsync<AppTask>(appTask);
+                appTask.ApplicationUsersAppTasks.Add(new ApplicationUserAppTask() { ApplicationUserId = userId });
+                appTask.MachinesAppTasks.Add(new MachineAppTask() { MachineId = model.MachineId });
+                await repo.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
 
-            await repo.AddAsync<AppTask>(appTask);
-            appTask.ApplicationUsersAppTasks.Add(new ApplicationUserAppTask() { ApplicationUserId = userId });
-            appTask.MachinesAppTasks.Add(new MachineAppTask() { MachineId = model.MachineId });
-            await repo.SaveChangesAsync();
+                throw new ApplicationException("Database failed to save this task");
+            }
+
+
 
             return appTask.Id;
         }

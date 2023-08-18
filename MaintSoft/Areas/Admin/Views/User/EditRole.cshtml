@@ -15,28 +15,28 @@
             <div class="mb-3">
                 <label asp-for="@Model.UserName" class="form-label">User Name</label>
                 <input asp-for="@Model.UserName" class="form-control" aria-required="true" disabled="disabled" style="background-color:lightgrey" />
-                <span asp-validation-for="UserName" class="text-danger"></span>
+                <span asp-validation-for="UserName" class="invalid-input"></span>
             </div>
             <div class="mb-3">
                 <label asp-for="@Model.FirstName" class="form-label">First Name</label>
                 <input asp-for="@Model.FirstName" class="form-control" aria-required="true" />
-                <span asp-validation-for="FirstName" class="text-danger"></span>
+                <span asp-validation-for="FirstName" class="invalid-input"></span>
             </div>
        
             <div class="mb-3">
                 <label asp-for="@Model.LastName" class="form-label">Last Name</label>
                 <input asp-for="@Model.LastName" class="form-control" aria-required="true" />
-                <span asp-validation-for="LastName" class="text-danger"></span>
+                <span asp-validation-for="LastName" class="invalid-input"></span>
             </div>
             <div class="mb-3">
                 <label asp-for="@Model.Email" class="form-label">Email</label>
                 <input asp-for="@Model.Email" class="form-control" aria-required="true" disabled="disabled" style="background-color:lightgrey" />
-                <span asp-validation-for="Email" class="text-danger"></span>
+                <span asp-validation-for="Email" class="invalid-input"></span>
             </div>
             <div class="mb-3">
                 <label asp-for="@Model.JobPosition" class="form-label">Position</label>
                 <input asp-for="@Model.JobPosition" class="form-control" aria-required="true" />
-                <span asp-validation-for="JobPosition" class="text-danger"></span>
+                <span asp-validation-for="JobPosition" class="invalid-input"></span>
             </div>
             <div class="mb-3">
                 <label asp-for="@Model.RoleName" class="form-label">Role</label>
@@ -54,7 +54,7 @@
 
                     }
                 </select>
-                <span asp-validation-for="RoleName" class="text-danger"></span>
+                <span asp-validation-for="RoleName" class="invalid-input"></span>
 
             </div>
 

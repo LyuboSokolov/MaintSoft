@@ -122,3 +122,8 @@ div.details-machine {
     width: 75px;
     padding: 0.4rem 0.5rem;
 }
+
+span.invalid-input {
+    background-color:red;
+    color:white;
+}

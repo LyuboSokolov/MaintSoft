@@ -15,32 +15,32 @@
             <div class="mb-3">
                 <label asp-for="@Model.Name" class="form-label">Name</label>
                 <input asp-for="@Model.Name" class="form-control" aria-required="true" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <span asp-validation-for="Name" class="invalid-input"></span>
             </div>
             <div class="mb-3">
                 <label asp-for="@Model.Code" class="form-label">Code</label>
                 <input asp-for="@Model.Code" class="form-control" aria-required="true" />
-                <span asp-validation-for="Code" class="text-danger"></span>
+                <span asp-validation-for="Code" class="invalid-input"></span>
             </div>
             <div class="mb-3">
                 <label asp-for="@Model.Description" class="form-label">Description</label>
                 <textarea asp-for="@Model.Description" class="form-control" aria-required="true" rows="5"></textarea>
-                <span asp-validation-for="Description" class="text-danger"></span>
+                <span asp-validation-for="Description" class="invalid-input"></span>
             </div>
             <div class="mb-3">
                 <label asp-for="@Model.Quantity" class="form-label">Quantity</label>
                 <input asp-for="@Model.Quantity" class="form-control" aria-required="true" />
-                <span asp-validation-for="Quantity" class="text-danger"></span>
+                <span asp-validation-for="Quantity" class="invalid-input"></span>
             </div>
             <div class="mb-3">
                 <label asp-for="@Model.Location" class="form-label">Location</label>
                 <input asp-for="@Model.Location" class="form-control" />
-                <span asp-validation-for="Location" class="text-danger"></span>
+                <span asp-validation-for="Location" class="invalid-input"></span>
             </div>
             <div class="mb-3">
                 <label asp-for="@Model.ImageUrl" class="form-label">ImageUrl</label>
                 <input asp-for="@Model.ImageUrl" class="form-control" />
-                <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                <span asp-validation-for="ImageUrl" class="invalid-input"></span>
             </div>
             <div class="mb-3">
                 <label asp-for="@Model.ManufacturerId" class="form-label">Manufacturers</label>
@@ -50,7 +50,7 @@
                         <option value="@manufacturer.Id">@manufacturer.Name</option>
                     }
                 </select>
-                <span asp-validation-for="ManufacturerId" class="text-danger"></span>
+                <span asp-validation-for="ManufacturerId" class="invalid-input"></span>
 
                 <div class="mb-3">
                     <a class="btn btn-primary btn-app" style="margin-top: 5px" asp-area="" asp-controller="Manufacturer" asp-action="Add">Add Manufacturer</a>
