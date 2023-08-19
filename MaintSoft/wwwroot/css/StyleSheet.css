@@ -123,7 +123,25 @@ div.details-machine {
     padding: 0.4rem 0.5rem;
 }
 
-span.invalid-input {
-    background-color:red;
-    color:white;
+span.invalid-input,
+#login {
+    background-color: red;
+    color: white;
 }
+
+#message-container {
+    height: 350px;
+    overflow: auto;
+}
+
+#messagesList {
+    list-style-type: none;
+    overflow-wrap: break-word;
+}
+
+    #messagesList li {
+        text-decoration: none;
+        background-color: antiquewhite;
+        max-width: auto;
+        margin-bottom: 5px;
+    }

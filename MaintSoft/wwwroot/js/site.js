@@ -3,8 +3,3 @@
 
 // Write your JavaScript code.
 
-
-function Test(event) {
-  addEventListener.
-    } 
-}

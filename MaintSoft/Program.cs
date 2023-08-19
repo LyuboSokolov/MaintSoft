@@ -1,5 +1,6 @@
 using MaintSoft.Core.Contracts;
 using MaintSoft.Core.Services;
+using MaintSoft.Hubs;
 using MaintSoft.Infrastructure.Data;
 using MaintSoft.Infrastructure.Data.Common;
 using Microsoft.AspNetCore.Identity;
@@ -30,7 +31,7 @@ builder.Services.AddControllersWithViews()
     .AddMvcOptions(options =>
     {
         options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
-       
+
     });
 
 builder.Services.AddScoped<IRepository, Repository>();
@@ -41,12 +42,15 @@ builder.Services.AddScoped<IAppTaskService, AppTaskService>();
 builder.Services.AddScoped<IMachineService, MachineService>();
 builder.Services.AddScoped<IAssetService, AssetService>();
 
+builder.Services.AddSignalR();
+
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.LoginPath = "/User/Login";
     options.LogoutPath = "/User/Logout";
 
 });
+
 
 var app = builder.Build();
 
@@ -83,8 +87,11 @@ app.UseEndpoints(endpoints =>
     );
 
     endpoints.MapRazorPages();
+
+
+
 });
 
-
+app.MapHub<ChatHub>("/chatHub");
 
 app.Run();

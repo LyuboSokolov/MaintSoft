@@ -11,7 +11,7 @@
         <section class="login-section">
             <form id="account" method="post" class="form-app-user">
                 <hr />
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div asp-validation-summary="ModelOnly" class="invalid-input" id="login"></div>
                 <div class="text-center mb-3">
                     <label asp-for="@Model.Email" class="form-label"></label>
                     <input asp-for="@Model.Email" class="form-control" autocomplete="email" aria-required="true" />
