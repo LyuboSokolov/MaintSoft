@@ -61,8 +61,6 @@ namespace MaintSoft.Core.Services
                 throw new ApplicationException("Database failed to save this task");
             }
 
-
-
             return appTask.Id;
         }
 
