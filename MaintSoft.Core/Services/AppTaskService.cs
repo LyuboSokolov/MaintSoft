@@ -187,7 +187,7 @@ namespace MaintSoft.Core.Services
 
             if (appTask == null)
             {
-                return;
+                 throw new ArgumentException("Don't exist this task to delete!");
             }
 
             appTask.IsDelete = true;

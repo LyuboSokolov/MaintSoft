@@ -9,6 +9,7 @@ using Moq;
 using Newtonsoft.Json;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 
 namespace MaintSoft.Test
 {
@@ -321,6 +322,166 @@ namespace MaintSoft.Test
             Assert.That(appTasks.TotalAppTasksCount, Is.EqualTo(2));
         }
 
+        [Test]
+        public async Task TestStartStopTaskWhenTaskNew()
+        {
+            var loggerMock = new Mock<ILogger<AppTaskService>>();
+
+            var repo = new Repository(maintSoftDbContext);
+            appTaskService = new AppTaskService(repo, sparePartService);
+
+            //await repo.AddAsync<Status>(new Status() { Id = 4, Name = "Done" });
+
+            await repo.AddAsync<AppTask>(new AppTask()
+            {
+                Id = 1,
+                Name = "firstTask1",
+                Description = "descriptionTaskFirst",
+                StatusId = 1,
+                Status = new Status { Id = 1, Name = "New" },
+                CreatedDate = DateTime.Now,
+                UserCreatedId = "userCreated",
+                ApplicationUsersAppTasks = new List<ApplicationUserAppTask>(),
+                MachinesAppTasks = new List<MachineAppTask>()
+            });
+
+            await repo.AddAsync<Status>(new Status()
+            {
+                Id = 2,
+                Name = "In Process"
+            });
+            await repo.AddAsync<Status>(new Status()
+            {
+                Id = 3,
+                Name = "Stopped"
+            });
+
+            await repo.SaveChangesAsync();
+
+
+
+            var appTasks = await repo.GetByIdAsync<AppTask>(1);
+
+            appTaskService.StartStopTaskAsync(1);
+
+
+            Assert.That(appTasks.StatusId, Is.EqualTo(2));
+        }
+
+        [Test]
+        public async Task TestStartStopTaskWhenTaskInProcess()
+        {
+            var loggerMock = new Mock<ILogger<AppTaskService>>();
+
+            var repo = new Repository(maintSoftDbContext);
+            appTaskService = new AppTaskService(repo, sparePartService);
+
+            //await repo.AddAsync<Status>(new Status() { Id = 4, Name = "Done" });
+
+            await repo.AddAsync<AppTask>(new AppTask()
+            {
+                Id = 1,
+                Name = "firstTask1",
+                Description = "descriptionTaskFirst",
+                StatusId = 1,
+                Status = new Status { Id = 1, Name = "In Process" },
+                CreatedDate = DateTime.Now,
+                UserCreatedId = "userCreated",
+                ApplicationUsersAppTasks = new List<ApplicationUserAppTask>(),
+                MachinesAppTasks = new List<MachineAppTask>()
+            });
+
+            await repo.AddAsync<Status>(new Status()
+            {
+                Id = 2,
+                Name = "In Process"
+            });
+            await repo.AddAsync<Status>(new Status()
+            {
+                Id = 3,
+                Name = "Stopped"
+            });
+            await repo.SaveChangesAsync();
+
+
+
+            var appTasks = await repo.GetByIdAsync<AppTask>(1);
+
+            appTaskService.StartStopTaskAsync(1);
+
+
+            Assert.That(appTasks.StatusId, Is.EqualTo(3));
+        }
+
+
+        [Test]
+        public async Task TestDeleteTask()
+        {
+            var loggerMock = new Mock<ILogger<AppTaskService>>();
+
+            var repo = new Repository(maintSoftDbContext);
+            appTaskService = new AppTaskService(repo, sparePartService);
+
+            await repo.AddAsync<AppTask>(new AppTask()
+            {
+                Id = 1,
+                Name = "firstTask1",
+                Description = "descriptionTaskFirst",
+                StatusId = 1,
+                Status = new Status { Id = 1, Name = "New" },
+                CreatedDate = DateTime.Now,
+                UserCreatedId = "userCreated",
+                ApplicationUsersAppTasks = new List<ApplicationUserAppTask>(),
+                MachinesAppTasks = new List<MachineAppTask>()
+            });
+
+            await repo.AddAsync<AppTask>(new AppTask()
+            {
+                Id = 2,
+                Name = "second",
+                Description = "descriptionTaskSecond",
+                StatusId = 1,
+                Status = new Status { Id = 2, Name = "jgg" },
+                CreatedDate = DateTime.Now,
+                UserCreatedId = "userCreated",
+                ApplicationUsersAppTasks = new List<ApplicationUserAppTask>(),
+                MachinesAppTasks = new List<MachineAppTask>()
+            });
+
+            await repo.SaveChangesAsync();
+
+            appTaskService.DeleteAsync(2, "Gosho");
+
+            var appTasks = await appTaskService.GetAllAppTaskAsync();
+
+            Assert.That(appTasks.TotalAppTasksCount, Is.EqualTo(1));
+        }
+
+        [Test]
+        public async Task TestAllStatusNames()
+        {
+            var loggerMock = new Mock<ILogger<AppTaskService>>();
+
+            var repo = new Repository(maintSoftDbContext);
+            appTaskService = new AppTaskService(repo, sparePartService);
+
+       
+            await repo.AddAsync<Status>(new Status()
+            {
+                Id = 2,
+                Name = "In Process"
+            });
+            await repo.AddAsync<Status>(new Status()
+            {
+                Id = 3,
+                Name = "Stopped"
+            });
+            await repo.SaveChangesAsync();
+
+            var statusNames = await appTaskService.AllStatusNames();
+
+            Assert.That(statusNames.Count(), Is.EqualTo(2));
+        }
 
     }
 }
