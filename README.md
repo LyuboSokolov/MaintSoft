@@ -21,7 +21,6 @@ The app use SignalR to creat online chat with other logg in users.
 <ul>
 <li>Only view index/home page</li>
 </ul>
-<br>
 
 <h3>Registered user with role "user/operator"</h3>
 <ul>
@@ -31,7 +30,6 @@ The app use SignalR to creat online chat with other logg in users.
 <li>Details task, start, complete or stop task</li>
 <li>Create online chat with others logg in users</li>
 </ul>
-<br>
 
 <h3>Registered user with role "engineer"</h3>
 <ul>
@@ -47,7 +45,6 @@ The app use SignalR to creat online chat with other logg in users.
 <li>View manufacturer page</li>
 <li>Add, edit and delete manufacturer</li>
 </ul>
-<br>
 
 <h3>Registered user with role "administrator"</h3>
 <ul>
